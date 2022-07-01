@@ -26,3 +26,9 @@ Rover
 - [ ] Abort mission if obstacle detected in proximity of the next movement
 - [ ] Report obstacle
 - [ ] Execute complex sequence of commands
+
+Third part
+
+Edge Cases
+
+- [ ] Wrong coordinates for Rover initial position
