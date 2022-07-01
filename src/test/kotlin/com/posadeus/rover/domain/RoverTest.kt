@@ -149,4 +149,17 @@ class RoverTest {
     assertThrows<CommandNotFoundException> { rover.move('k') }
   }
   // endregion
+
+  // region plan turn
+  @Test
+  internal fun `plan turn right with orientation N`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(0, 0), N)
+
+    assertTrue { rover.turnRight() == E }
+  }
+  // endregion
 }

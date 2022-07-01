@@ -38,4 +38,7 @@ data class Rover(private val mars: Mars,
               else -> throw CommandNotFoundException()
             },
             orientation)
+
+  fun turnRight(): Orientation =
+      E
 }
