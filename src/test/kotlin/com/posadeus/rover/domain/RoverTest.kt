@@ -13,7 +13,7 @@ class RoverTest {
 
     val rover = Rover(mars, Coordinate(0, 0), "N")
 
-    assertTrue { rover.position() == Pair(-2, -2) }
+    assertTrue { rover.position() == Coordinate(-2, -2) }
     assertTrue { rover.orientation == "N" }
   }
 
@@ -24,7 +24,7 @@ class RoverTest {
                     arrayOf(-2, -1, 0, 1, 2))
     val rover = Rover(mars, Coordinate(0, 0), "N")
 
-    assertTrue { rover.forward() == Pair(-2, -1) }
+    assertTrue { rover.forward() == Coordinate(-2, -1) }
   }
 
   @Test
@@ -34,6 +34,6 @@ class RoverTest {
                     arrayOf(-2, -1, 0, 1, 2))
     val rover = Rover(mars, Coordinate(0, 0), "E")
 
-    assertTrue { rover.forward() == Pair(-1, -2) }
+    assertTrue { rover.forward() == Coordinate(-1, -2) }
   }
 }
