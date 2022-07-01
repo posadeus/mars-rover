@@ -11,7 +11,7 @@ Rover
 - [X] Move Rover backward
 - [X] Turn Rover right
 - [X] Turn Rover left
-- [ ] Execute simple sequence of commands
+- [X] Execute simple sequence of commands
 
 Second part
 
