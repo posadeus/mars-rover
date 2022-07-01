@@ -9,4 +9,7 @@ class Rover(private val mars: Mars,
 
   fun position(): Pair<Int, Int> =
       mars.coordinate(x, y)
+
+  fun forward(): Pair<Int, Int> =
+      mars.coordinate(x, y + 1)
 }
