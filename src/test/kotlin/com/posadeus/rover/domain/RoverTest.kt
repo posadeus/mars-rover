@@ -33,9 +33,9 @@ class RoverTest {
   }
 // endregion
 
-  //  region move forward
+  //  region plan move forward
   @Test
-  internal fun `move forward on Y with N orientation`() {
+  internal fun `plan move forward on Y with N orientation`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -45,7 +45,7 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move forward on Y with S orientation`() {
+  internal fun `plan move forward on Y with S orientation`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -55,7 +55,7 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move forward on X with E orientation`() {
+  internal fun `plan move forward on X with E orientation`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -65,7 +65,7 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move forward on X with W orientation`() {
+  internal fun `plan move forward on X with W orientation`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -75,9 +75,9 @@ class RoverTest {
   }
 //  endregion
 
-  // region move backward
+  // region plan move backward
   @Test
-  internal fun `move backward on Y with orientation N`() {
+  internal fun `plan move backward on Y with orientation N`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -87,7 +87,7 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move backward on Y with orientation S`() {
+  internal fun `plan move backward on Y with orientation S`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -97,7 +97,7 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move backward on X with orientation E`() {
+  internal fun `plan move backward on X with orientation E`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -107,7 +107,7 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move backward on X with orientation W`() {
+  internal fun `plan move backward on X with orientation W`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -116,4 +116,14 @@ class RoverTest {
     assertTrue { rover.backward() == Coordinate(1, 0) }
   }
 //  endregion
+
+  @Test
+  internal fun `move forward`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), N)
+
+    assertTrue { rover.move('f') == Rover(mars, Coordinate(0, 1), N) }
+  }
 }
