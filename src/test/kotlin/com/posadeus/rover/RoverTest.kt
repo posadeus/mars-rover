@@ -11,8 +11,9 @@ class RoverTest {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, 0, 0)
+    val rover = Rover(mars, 0, 0, "N")
 
     assertTrue { rover.position() == mars.coordinate(0, 0) }
+    assertTrue { rover.orientation == "N" }
   }
 }
