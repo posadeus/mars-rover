@@ -30,4 +30,4 @@ Rover
 Edge Cases
 
 - [X] Wrong coordinates for Rover initial position
-- [ ] Command not found
+- [X] Command not found

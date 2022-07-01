@@ -1,6 +1,7 @@
 package com.posadeus.rover.domain
 
 import com.posadeus.rover.domain.Orientation.*
+import com.posadeus.rover.domain.exception.CommandNotFoundException
 import com.posadeus.rover.domain.exception.WrongCoordinateException
 
 data class Rover(private val mars: Mars,
@@ -34,7 +35,7 @@ data class Rover(private val mars: Mars,
             when (movement) {
               'f' -> forward()
               'b' -> backward()
-              else -> coordinate
+              else -> throw CommandNotFoundException()
             },
             orientation)
 }

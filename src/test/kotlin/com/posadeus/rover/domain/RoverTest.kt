@@ -1,6 +1,7 @@
 package com.posadeus.rover.domain
 
 import com.posadeus.rover.domain.Orientation.*
+import com.posadeus.rover.domain.exception.CommandNotFoundException
 import com.posadeus.rover.domain.exception.WrongCoordinateException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -117,6 +118,7 @@ class RoverTest {
   }
 //  endregion
 
+  // region moves
   @Test
   internal fun `move forward`() {
 
@@ -136,4 +138,15 @@ class RoverTest {
 
     assertTrue { rover.move('b') == Rover(mars, Coordinate(0, -1), N) }
   }
+
+  @Test
+  internal fun `move command not found`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), N)
+
+    assertThrows<CommandNotFoundException> { rover.move('k') }
+  }
+  // endregion
 }
