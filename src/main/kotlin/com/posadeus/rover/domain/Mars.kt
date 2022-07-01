@@ -1,4 +1,4 @@
-package com.posadeus.mars
+package com.posadeus.rover.domain
 
 class Mars(private val x: Array<Int>,
            private val y: Array<Int>) {

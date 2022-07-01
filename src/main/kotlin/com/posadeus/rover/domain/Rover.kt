@@ -1,6 +1,4 @@
-package com.posadeus.rover
-
-import com.posadeus.mars.Mars
+package com.posadeus.rover.domain
 
 class Rover(private val mars: Mars,
             private val x: Int,

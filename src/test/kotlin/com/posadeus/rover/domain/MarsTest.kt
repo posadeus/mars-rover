@@ -1,4 +1,4 @@
-package com.posadeus.mars
+package com.posadeus.rover.domain
 
 import org.junit.jupiter.api.Test
 import kotlin.test.assertTrue
