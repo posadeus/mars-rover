@@ -6,7 +6,7 @@ Mars
 
 Rover
 
-- [ ] Starting point for Rover with initial direction
+- [X] Starting point for Rover with initial direction
 - [ ] Move Rover forward
 - [ ] Move Rover backward
 - [ ] Turn Rover right
