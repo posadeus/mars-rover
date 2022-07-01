@@ -7,17 +7,18 @@ import kotlin.test.assertTrue
 
 class RoverTest {
 
-  @Test
-  internal fun `rover initial position`() {
+//  region initial position
+@Test
+internal fun `rover initial position`() {
 
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
+  val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                  arrayOf(-2, -1, 0, 1, 2))
 
-    val rover = Rover(mars, Coordinate(0, 0), "N")
+  val rover = Rover(mars, Coordinate(0, 0), "N")
 
-    assertTrue { rover.position() == Coordinate(0, 0) }
-    assertTrue { rover.orientation == "N" }
-  }
+  assertTrue { rover.position() == Coordinate(0, 0) }
+  assertTrue { rover.orientation == "N" }
+}
 
   @Test
   internal fun `rover wrong initial position`() {
@@ -29,9 +30,11 @@ class RoverTest {
 
     assertThrows<WrongCoordinateException> { rover.position() }
   }
+// endregion
 
+  //  region move forward
   @Test
-  internal fun `move forward on Y`() {
+  internal fun `move forward on Y with N orientation`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -41,7 +44,17 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move forward on X`() {
+  internal fun `move forward on Y with S orientation`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), "S")
+
+    assertTrue { rover.forward() == Coordinate(0, -1) }
+  }
+
+  @Test
+  internal fun `move forward on X with E orientation`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -50,6 +63,18 @@ class RoverTest {
     assertTrue { rover.forward() == Coordinate(1, 0) }
   }
 
+  @Test
+  internal fun `move forward on X with W orientation`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), "W")
+
+    assertTrue { rover.forward() == Coordinate(-1, 0) }
+  }
+//  endregion
+
+  // region move backward
   @Test
   internal fun `move backward on Y`() {
 
@@ -69,4 +94,5 @@ class RoverTest {
 
     assertTrue { rover.backward() == Coordinate(-1, 0) }
   }
+//  endregion
 }
