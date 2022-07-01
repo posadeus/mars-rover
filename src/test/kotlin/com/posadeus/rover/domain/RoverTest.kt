@@ -252,5 +252,25 @@ class RoverTest {
 
     assertTrue { rover.turn('r') == Rover(mars, Coordinate(0, 0), E) }
   }
+
+  @Test
+  internal fun `turn left`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), N)
+
+    assertTrue { rover.turn('l') == Rover(mars, Coordinate(0, 0), W) }
+  }
+
+  @Test
+  internal fun `turn command not found`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), N)
+
+    assertThrows<CommandNotFoundException> { rover.turn('k') }
+  }
   // endregion
 }

@@ -60,6 +60,7 @@ data class Rover(private val mars: Mars,
             coordinate,
             when (movement) {
               'r' -> turnRight()
-              else -> orientation
+              'l' -> turnLeft()
+              else -> throw CommandNotFoundException()
             })
 }

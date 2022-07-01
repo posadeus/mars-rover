@@ -9,8 +9,8 @@ Rover
 - [X] Starting point for Rover with initial direction
 - [X] Move Rover forward
 - [X] Move Rover backward
-- [ ] Turn Rover right
-- [ ] Turn Rover left
+- [X] Turn Rover right
+- [X] Turn Rover left
 - [ ] Execute simple sequence of commands
 
 Second part
