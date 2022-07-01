@@ -77,7 +77,7 @@ class RoverTest {
 
   // region move backward
   @Test
-  internal fun `move backward on Y`() {
+  internal fun `move backward on Y with orientation N`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
@@ -87,13 +87,33 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move backward on X`() {
+  internal fun `move backward on Y with orientation S`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), S)
+
+    assertTrue { rover.backward() == Coordinate(0, 1) }
+  }
+
+  @Test
+  internal fun `move backward on X with orientation E`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
     val rover = Rover(mars, Coordinate(0, 0), E)
 
     assertTrue { rover.backward() == Coordinate(-1, 0) }
+  }
+
+  @Test
+  internal fun `move backward on X with orientation W`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), W)
+
+    assertTrue { rover.backward() == Coordinate(1, 0) }
   }
 //  endregion
 }

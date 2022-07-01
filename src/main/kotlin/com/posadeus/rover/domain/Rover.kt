@@ -17,11 +17,15 @@ class Rover(private val mars: Mars,
       when (orientation) {
         N -> Coordinate(coordinate.x, coordinate.y + 1)
         S -> Coordinate(coordinate.x, coordinate.y - 1)
-        W -> Coordinate(coordinate.x - 1, coordinate.y)
         E -> Coordinate(coordinate.x + 1, coordinate.y)
+        W -> Coordinate(coordinate.x - 1, coordinate.y)
       }
 
   fun backward(): Coordinate =
-      if (orientation == N) Coordinate(coordinate.x, coordinate.y - 1)
-      else Coordinate(coordinate.x - 1, coordinate.y)
+      when (orientation) {
+        N -> Coordinate(coordinate.x, coordinate.y - 1)
+        S -> Coordinate(coordinate.x, coordinate.y + 1)
+        E -> Coordinate(coordinate.x - 1, coordinate.y)
+        W -> Coordinate(coordinate.x + 1, coordinate.y)
+      }
 }
