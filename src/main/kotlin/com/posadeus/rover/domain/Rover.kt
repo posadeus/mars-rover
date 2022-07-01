@@ -7,7 +7,7 @@ class Rover(private val mars: Mars,
             val orientation: String) {
 
   fun position(): Coordinate =
-      if (mars.isValidCoordinate(coordinate.x, coordinate.y))
+      if (mars.isValidCoordinate(coordinate))
         coordinate
       else
         throw WrongCoordinateException()
