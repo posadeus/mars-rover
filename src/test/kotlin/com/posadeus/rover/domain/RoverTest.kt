@@ -150,7 +150,7 @@ class RoverTest {
   }
   // endregion
 
-  // region plan turn
+  // region plan turn right
   @Test
   internal fun `plan turn right with orientation N`() {
 
@@ -193,6 +193,52 @@ class RoverTest {
     val rover = Rover(mars, Coordinate(0, 0), W)
 
     assertTrue { rover.turnRight() == N }
+  }
+  // endregion
+
+  // region plan turn left
+  @Test
+  internal fun `plan turn left with orientation N`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(0, 0), N)
+
+    assertTrue { rover.turnLeft() == W }
+  }
+
+  @Test
+  internal fun `plan turn left with orientation E`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(0, 0), E)
+
+    assertTrue { rover.turnLeft() == N }
+  }
+
+  @Test
+  internal fun `plan turn left with orientation S`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(0, 0), S)
+
+    assertTrue { rover.turnLeft() == E }
+  }
+
+  @Test
+  internal fun `plan turn left with orientation W`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(0, 0), W)
+
+    assertTrue { rover.turnLeft() == S }
   }
   // endregion
 }
