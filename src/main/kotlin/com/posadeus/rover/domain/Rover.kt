@@ -1,11 +1,16 @@
 package com.posadeus.rover.domain
 
+import com.posadeus.rover.domain.exception.WrongCoordinateException
+
 class Rover(private val mars: Mars,
             private val coordinate: Coordinate,
             val orientation: String) {
 
   fun position(): Coordinate =
-      mars.coordinate(coordinate.x, coordinate.y)
+      if (mars.isValidCoordinate(coordinate.x, coordinate.y))
+        coordinate
+      else
+        throw WrongCoordinateException()
 
   fun forward(): Coordinate =
       if (orientation == "N") mars.coordinate(coordinate.x, coordinate.y + 1)

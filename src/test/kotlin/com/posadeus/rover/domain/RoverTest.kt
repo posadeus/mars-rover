@@ -1,6 +1,8 @@
 package com.posadeus.rover.domain
 
+import com.posadeus.rover.domain.exception.WrongCoordinateException
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertTrue
 
 class RoverTest {
@@ -13,8 +15,19 @@ class RoverTest {
 
     val rover = Rover(mars, Coordinate(0, 0), "N")
 
-    assertTrue { rover.position() == Coordinate(-2, -2) }
+    assertTrue { rover.position() == Coordinate(0, 0) }
     assertTrue { rover.orientation == "N" }
+  }
+
+  @Test
+  internal fun `rover wrong initial position`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(-3, 0), "N")
+
+    assertThrows<WrongCoordinateException> { rover.position() }
   }
 
   @Test

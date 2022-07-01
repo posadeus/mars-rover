@@ -27,8 +27,6 @@ Rover
 - [ ] Report obstacle
 - [ ] Execute complex sequence of commands
 
-Third part
-
 Edge Cases
 
-- [ ] Wrong coordinates for Rover initial position
+- [X] Wrong coordinates for Rover initial position
