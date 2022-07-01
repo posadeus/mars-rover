@@ -33,6 +33,7 @@ data class Rover(private val mars: Mars,
       Rover(mars,
             when (movement) {
               'f' -> forward()
+              'b' -> backward()
               else -> coordinate
             },
             orientation)
