@@ -17,5 +17,6 @@ class Rover(private val mars: Mars,
       else Coordinate(coordinate.x + 1, coordinate.y)
 
   fun backward(): Coordinate =
-      Coordinate(coordinate.x, coordinate.y - 1)
+      if (orientation == "N") Coordinate(coordinate.x, coordinate.y - 1)
+      else Coordinate(coordinate.x - 1, coordinate.y)
 }
