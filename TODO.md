@@ -2,8 +2,7 @@ First part
 
 Mars
 
-- [ ] Define Mars surface
-- [ ] Add Pac-Man effects to Mars surface
+- [X] Define Mars surface
 
 Rover
 
@@ -19,6 +18,7 @@ Second part
 Mars
 
 - [ ] Add obstacles
+- [ ] Add Pac-Man effects to Mars surface
 
 Rover
 
