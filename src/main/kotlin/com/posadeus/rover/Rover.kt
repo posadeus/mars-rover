@@ -1,8 +1,11 @@
 package com.posadeus.rover
 
-class Rover(private val x: Int,
+import com.posadeus.mars.Mars
+
+class Rover(private val mars: Mars,
+            private val x: Int,
             private val y: Int) {
 
   fun position(): Pair<Int, Int> =
-      Pair(x, y)
+      mars.coordinate(x, y)
 }
