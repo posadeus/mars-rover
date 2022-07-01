@@ -161,5 +161,38 @@ class RoverTest {
 
     assertTrue { rover.turnRight() == E }
   }
+
+  @Test
+  internal fun `plan turn right with orientation E`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(0, 0), E)
+
+    assertTrue { rover.turnRight() == S }
+  }
+
+  @Test
+  internal fun `plan turn right with orientation S`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(0, 0), S)
+
+    assertTrue { rover.turnRight() == W }
+  }
+
+  @Test
+  internal fun `plan turn right with orientation W`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    val rover = Rover(mars, Coordinate(0, 0), W)
+
+    assertTrue { rover.turnRight() == N }
+  }
   // endregion
 }

@@ -40,5 +40,10 @@ data class Rover(private val mars: Mars,
             orientation)
 
   fun turnRight(): Orientation =
-      E
+      when (orientation) {
+        N -> E
+        S -> W
+        E -> S
+        W -> N
+      }
 }
