@@ -273,4 +273,14 @@ class RoverTest {
     assertThrows<CommandNotFoundException> { rover.turn('k') }
   }
   // endregion
+
+  @Test
+  internal fun `execute forward and backward commands`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), N)
+
+    assertTrue { rover.execute(arrayOf('f', 'f', 'b')) == Rover(mars, Coordinate(0, 1), N) }
+  }
 }

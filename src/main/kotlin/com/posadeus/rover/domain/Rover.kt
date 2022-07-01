@@ -63,4 +63,22 @@ data class Rover(private val mars: Mars,
               'l' -> turnLeft()
               else -> throw CommandNotFoundException()
             })
+
+  fun execute(movements: Array<Char>): Rover {
+
+    tailrec fun go(movements: Iterator<Char>, rover: Rover): Rover {
+
+      return if (movements.hasNext()) {
+
+        when (val movement = movements.next()) {
+          'f', 'b' -> go(movements, rover.move(movement))
+          else -> Rover(mars, coordinate, orientation)
+        }
+      }
+      else
+        rover
+    }
+
+    return go(movements.iterator(), this)
+  }
 }
