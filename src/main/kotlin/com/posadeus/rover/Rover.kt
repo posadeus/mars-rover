@@ -11,5 +11,6 @@ class Rover(private val mars: Mars,
       mars.coordinate(x, y)
 
   fun forward(): Pair<Int, Int> =
-      mars.coordinate(x, y + 1)
+      if (orientation == "N") mars.coordinate(x, y + 1)
+      else mars.coordinate(x + 1, y)
 }

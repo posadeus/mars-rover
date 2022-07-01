@@ -26,4 +26,14 @@ class RoverTest {
 
     assertTrue { rover.forward() == mars.coordinate(0, 1) }
   }
+
+  @Test
+  internal fun `move forward on X`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, 0, 0, "E")
+
+    assertTrue { rover.forward() == mars.coordinate(1, 0) }
+  }
 }
