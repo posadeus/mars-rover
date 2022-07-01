@@ -54,4 +54,12 @@ data class Rover(private val mars: Mars,
         E -> N
         W -> S
       }
+
+  fun turn(movement: Char): Rover =
+      Rover(mars,
+            coordinate,
+            when (movement) {
+              'r' -> turnRight()
+              else -> orientation
+            })
 }
