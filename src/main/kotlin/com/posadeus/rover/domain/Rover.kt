@@ -72,6 +72,7 @@ data class Rover(private val mars: Mars,
 
         when (val movement = movements.next()) {
           'f', 'b' -> go(movements, rover.move(movement))
+          'r', 'l' -> go(movements, rover.turn(movement))
           else -> Rover(mars, coordinate, orientation)
         }
       }
