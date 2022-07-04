@@ -7,7 +7,8 @@ import com.posadeus.rover.domain.exception.WrongCoordinateException
 data class Rover(private val mars: Mars,
                  private val coordinate: Coordinate,
                  val orientation: Orientation,
-                 val movement: Movement? = null) {
+                 val movement: Movement? = null,
+                 val turn: Turn? = null) {
 
   fun position(): Coordinate =
       if (mars.isValidCoordinate(coordinate))
@@ -43,7 +44,8 @@ data class Rover(private val mars: Mars,
 
         when (val command = commands.next()) {
           'f', 'b' -> go(commands, move(movement!!.move(rover.coordinate, command, rover.orientation)))
-          'r', 'l' -> go(commands, rover.turn(command))
+          'r' -> go(commands, turn(turn!!.turn(command, rover.orientation)))
+          'l' -> go(commands, rover.turn(command))
           else -> throw CommandNotFoundException()
         }
       }
@@ -54,6 +56,7 @@ data class Rover(private val mars: Mars,
     return go(commands.iterator(), this)
   }
 
+  @Deprecated("To remove")
   fun move(movement: Char): Rover =
       Rover(mars,
             when (movement) {
@@ -63,6 +66,7 @@ data class Rover(private val mars: Mars,
             },
             orientation)
 
+  @Deprecated("To remove")
   fun turn(turn: Char): Rover =
       Rover(mars,
             coordinate,
@@ -73,6 +77,9 @@ data class Rover(private val mars: Mars,
             })
 
   private fun move(coordinate: Coordinate): Rover =
+      Rover(mars, coordinate, orientation)
+
+  private fun turn(orientation: Orientation): Rover =
       Rover(mars, coordinate, orientation)
 
   private fun forward(): Coordinate =

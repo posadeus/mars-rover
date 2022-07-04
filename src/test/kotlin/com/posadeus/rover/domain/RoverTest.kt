@@ -12,6 +12,7 @@ import kotlin.test.assertTrue
 class RoverTest {
 
   private val movement = mockk<Movement>()
+  private val turn = mockk<Turn>()
 
   //  region initial position
   @Test
@@ -117,10 +118,21 @@ class RoverTest {
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
 
-    assertTrue { Rover(mars, Coordinate(0, 0), N).execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), E) }
-    assertTrue { Rover(mars, Coordinate(0, 0), E).execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), S) }
-    assertTrue { Rover(mars, Coordinate(0, 0), S).execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), W) }
-    assertTrue { Rover(mars, Coordinate(0, 0), W).execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), N) }
+    val startCoordinate = Coordinate(0, 0)
+    val roverN = Rover(mars, startCoordinate, N, movement, turn)
+    val roverE = Rover(mars, startCoordinate, E, movement, turn)
+    val roverS = Rover(mars, startCoordinate, S, movement, turn)
+    val roverW = Rover(mars, startCoordinate, W, movement, turn)
+
+    every { turn.turn('r', N) } returns E
+    every { turn.turn('r', E) } returns S
+    every { turn.turn('r', S) } returns W
+    every { turn.turn('r', W) } returns N
+
+    assertTrue { roverN.executeNew(arrayOf('r')) == Rover(mars, startCoordinate, E) }
+    assertTrue { roverE.executeNew(arrayOf('r')) == Rover(mars, startCoordinate, S) }
+    assertTrue { roverS.executeNew(arrayOf('r')) == Rover(mars, startCoordinate, W) }
+    assertTrue { roverW.executeNew(arrayOf('r')) == Rover(mars, startCoordinate, N) }
   }
 
   @Test
