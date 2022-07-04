@@ -15,7 +15,7 @@
     <junit-jupiter-engine.version>5.8.2</junit-jupiter-engine.version>
 
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-    <mockito.version>1.10.19</mockito.version>
+    <mockk.version>1.12.4</mockk.version>
   </properties>
 
   <dependencies>
@@ -38,9 +38,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${mockito.version}</version>
+      <groupId>io.mockk</groupId>
+      <artifactId>mockk</artifactId>
+      <version>${mockk.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
