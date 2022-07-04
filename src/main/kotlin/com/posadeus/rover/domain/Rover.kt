@@ -14,7 +14,7 @@ data class Rover(private val mars: Mars,
       else
         throw WrongCoordinateException()
 
-  fun forward(): Coordinate =
+  private fun forward(): Coordinate =
       when (orientation) {
         N -> Coordinate(coordinate.x, coordinate.y + 1)
         S -> Coordinate(coordinate.x, coordinate.y - 1)
