@@ -15,7 +15,7 @@ data class Rover(private val mars: Mars,
       else
         throw WrongCoordinateException()
 
-  fun executeNew(commands: Array<Char>): Rover {
+  fun execute(commands: Array<Char>): Rover {
 
     tailrec fun go(commands: Iterator<Char>, rover: Rover): Rover {
 

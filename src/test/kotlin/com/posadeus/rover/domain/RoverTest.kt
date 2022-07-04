@@ -57,10 +57,10 @@ class RoverTest {
     every { movement.move(startCoordinate, 'f', S) } returns Coordinate(0, -1)
     every { movement.move(startCoordinate, 'f', W) } returns Coordinate(-1, 0)
 
-    assertTrue { roverN.executeNew(arrayOf('f')) == Rover(mars, Coordinate(0, 1), N, movement, turn) }
-    assertTrue { roverE.executeNew(arrayOf('f')) == Rover(mars, Coordinate(1, 0), E, movement, turn) }
-    assertTrue { roverS.executeNew(arrayOf('f')) == Rover(mars, Coordinate(0, -1), S, movement, turn) }
-    assertTrue { roverW.executeNew(arrayOf('f')) == Rover(mars, Coordinate(-1, 0), W, movement, turn) }
+    assertTrue { roverN.execute(arrayOf('f')) == Rover(mars, Coordinate(0, 1), N, movement, turn) }
+    assertTrue { roverE.execute(arrayOf('f')) == Rover(mars, Coordinate(1, 0), E, movement, turn) }
+    assertTrue { roverS.execute(arrayOf('f')) == Rover(mars, Coordinate(0, -1), S, movement, turn) }
+    assertTrue { roverW.execute(arrayOf('f')) == Rover(mars, Coordinate(-1, 0), W, movement, turn) }
   }
 
   @Test
@@ -80,10 +80,10 @@ class RoverTest {
     every { movement.move(startCoordinate, 'b', S) } returns Coordinate(0, 1)
     every { movement.move(startCoordinate, 'b', W) } returns Coordinate(1, 0)
 
-    assertTrue { roverN.executeNew(arrayOf('b')) == Rover(mars, Coordinate(0, -1), N, movement, turn) }
-    assertTrue { roverE.executeNew(arrayOf('b')) == Rover(mars, Coordinate(-1, 0), E, movement, turn) }
-    assertTrue { roverS.executeNew(arrayOf('b')) == Rover(mars, Coordinate(0, 1), S, movement, turn) }
-    assertTrue { roverW.executeNew(arrayOf('b')) == Rover(mars, Coordinate(1, 0), W, movement, turn) }
+    assertTrue { roverN.execute(arrayOf('b')) == Rover(mars, Coordinate(0, -1), N, movement, turn) }
+    assertTrue { roverE.execute(arrayOf('b')) == Rover(mars, Coordinate(-1, 0), E, movement, turn) }
+    assertTrue { roverS.execute(arrayOf('b')) == Rover(mars, Coordinate(0, 1), S, movement, turn) }
+    assertTrue { roverW.execute(arrayOf('b')) == Rover(mars, Coordinate(1, 0), W, movement, turn) }
   }
   // endregion
 
@@ -105,10 +105,10 @@ class RoverTest {
     every { turn.turn('r', S) } returns W
     every { turn.turn('r', W) } returns N
 
-    assertTrue { roverN.executeNew(arrayOf('r')) == Rover(mars, startCoordinate, E, movement, turn) }
-    assertTrue { roverE.executeNew(arrayOf('r')) == Rover(mars, startCoordinate, S, movement, turn) }
-    assertTrue { roverS.executeNew(arrayOf('r')) == Rover(mars, startCoordinate, W, movement, turn) }
-    assertTrue { roverW.executeNew(arrayOf('r')) == Rover(mars, startCoordinate, N, movement, turn) }
+    assertTrue { roverN.execute(arrayOf('r')) == Rover(mars, startCoordinate, E, movement, turn) }
+    assertTrue { roverE.execute(arrayOf('r')) == Rover(mars, startCoordinate, S, movement, turn) }
+    assertTrue { roverS.execute(arrayOf('r')) == Rover(mars, startCoordinate, W, movement, turn) }
+    assertTrue { roverW.execute(arrayOf('r')) == Rover(mars, startCoordinate, N, movement, turn) }
   }
 
   @Test
@@ -128,10 +128,10 @@ class RoverTest {
     every { turn.turn('l', S) } returns E
     every { turn.turn('l', W) } returns S
 
-    assertTrue { roverN.executeNew(arrayOf('l')) == Rover(mars, startCoordinate, W, movement, turn) }
-    assertTrue { roverE.executeNew(arrayOf('l')) == Rover(mars, startCoordinate, N, movement, turn) }
-    assertTrue { roverS.executeNew(arrayOf('l')) == Rover(mars, startCoordinate, E, movement, turn) }
-    assertTrue { roverW.executeNew(arrayOf('l')) == Rover(mars, startCoordinate, S, movement, turn) }
+    assertTrue { roverN.execute(arrayOf('l')) == Rover(mars, startCoordinate, W, movement, turn) }
+    assertTrue { roverE.execute(arrayOf('l')) == Rover(mars, startCoordinate, N, movement, turn) }
+    assertTrue { roverS.execute(arrayOf('l')) == Rover(mars, startCoordinate, E, movement, turn) }
+    assertTrue { roverW.execute(arrayOf('l')) == Rover(mars, startCoordinate, S, movement, turn) }
   }
   // endregion
 
@@ -145,7 +145,7 @@ class RoverTest {
     val turn = Turn()
     val rover = Rover(mars, Coordinate(0, 0), N, movement, turn)
 
-    assertTrue { rover.executeNew(arrayOf('f', 'f', 'b')) == Rover(mars, Coordinate(0, 1), N, movement, turn) }
+    assertTrue { rover.execute(arrayOf('f', 'f', 'b')) == Rover(mars, Coordinate(0, 1), N, movement, turn) }
   }
 
   @Test
@@ -158,11 +158,11 @@ class RoverTest {
     val rover = Rover(mars, Coordinate(0, 0), N, moves, turns)
 
     assertTrue {
-      rover.executeNew(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(mars,
-                                                                       Coordinate(1, 2),
-                                                                       E,
-                                                                       movement,
-                                                                       turn)
+      rover.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(mars,
+                                                                    Coordinate(1, 2),
+                                                                    E,
+                                                                    movement,
+                                                                    turn)
     }
   }
   // endregion
@@ -177,7 +177,7 @@ class RoverTest {
     val turn = Turn()
     val rover = Rover(mars, Coordinate(0, 0), N, movement, turn)
 
-    assertThrows<CommandNotFoundException> { rover.executeNew(arrayOf('k')) }
+    assertThrows<CommandNotFoundException> { rover.execute(arrayOf('k')) }
   }
   // endregion
 }
