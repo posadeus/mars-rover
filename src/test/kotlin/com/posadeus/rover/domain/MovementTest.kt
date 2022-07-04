@@ -16,4 +16,13 @@ internal class MovementTest {
     assertTrue { movement.move(Coordinate(0, 0), 'f', S) == Coordinate(0, -1) }
     assertTrue { movement.move(Coordinate(0, 0), 'f', W) == Coordinate(-1, 0) }
   }
+
+  @Test
+  internal fun `move backward`() {
+
+    assertTrue { movement.move(Coordinate(0, 0), 'b', N) == Coordinate(0, -1) }
+    assertTrue { movement.move(Coordinate(0, 0), 'b', E) == Coordinate(-1, 0) }
+    assertTrue { movement.move(Coordinate(0, 0), 'b', S) == Coordinate(0, 1) }
+    assertTrue { movement.move(Coordinate(0, 0), 'b', W) == Coordinate(1, 0) }
+  }
 }
