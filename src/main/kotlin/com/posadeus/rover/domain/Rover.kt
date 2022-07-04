@@ -14,56 +14,6 @@ data class Rover(private val mars: Mars,
       else
         throw WrongCoordinateException()
 
-  private fun forward(): Coordinate =
-      when (orientation) {
-        N -> Coordinate(coordinate.x, coordinate.y + 1)
-        S -> Coordinate(coordinate.x, coordinate.y - 1)
-        E -> Coordinate(coordinate.x + 1, coordinate.y)
-        W -> Coordinate(coordinate.x - 1, coordinate.y)
-      }
-
-  private fun backward(): Coordinate =
-      when (orientation) {
-        N -> Coordinate(coordinate.x, coordinate.y - 1)
-        S -> Coordinate(coordinate.x, coordinate.y + 1)
-        E -> Coordinate(coordinate.x - 1, coordinate.y)
-        W -> Coordinate(coordinate.x + 1, coordinate.y)
-      }
-
-  fun move(movement: Char): Rover =
-      Rover(mars,
-            when (movement) {
-              'f' -> forward()
-              'b' -> backward()
-              else -> throw CommandNotFoundException()
-            },
-            orientation)
-
-  private fun turnRight(): Orientation =
-      when (orientation) {
-        N -> E
-        S -> W
-        E -> S
-        W -> N
-      }
-
-  private fun turnLeft(): Orientation =
-      when (orientation) {
-        N -> W
-        S -> E
-        E -> N
-        W -> S
-      }
-
-  fun turn(movement: Char): Rover =
-      Rover(mars,
-            coordinate,
-            when (movement) {
-              'r' -> turnRight()
-              'l' -> turnLeft()
-              else -> throw CommandNotFoundException()
-            })
-
   fun execute(movements: Array<Char>): Rover {
 
     tailrec fun go(movements: Iterator<Char>, rover: Rover): Rover {
@@ -82,4 +32,54 @@ data class Rover(private val mars: Mars,
 
     return go(movements.iterator(), this)
   }
+
+  fun move(movement: Char): Rover =
+      Rover(mars,
+            when (movement) {
+              'f' -> forward()
+              'b' -> backward()
+              else -> throw CommandNotFoundException()
+            },
+            orientation)
+
+  fun turn(movement: Char): Rover =
+      Rover(mars,
+            coordinate,
+            when (movement) {
+              'r' -> turnRight()
+              'l' -> turnLeft()
+              else -> throw CommandNotFoundException()
+            })
+
+  private fun forward(): Coordinate =
+      when (orientation) {
+        N -> Coordinate(coordinate.x, coordinate.y + 1)
+        S -> Coordinate(coordinate.x, coordinate.y - 1)
+        E -> Coordinate(coordinate.x + 1, coordinate.y)
+        W -> Coordinate(coordinate.x - 1, coordinate.y)
+      }
+
+  private fun backward(): Coordinate =
+      when (orientation) {
+        N -> Coordinate(coordinate.x, coordinate.y - 1)
+        S -> Coordinate(coordinate.x, coordinate.y + 1)
+        E -> Coordinate(coordinate.x - 1, coordinate.y)
+        W -> Coordinate(coordinate.x + 1, coordinate.y)
+      }
+
+  private fun turnRight(): Orientation =
+      when (orientation) {
+        N -> E
+        S -> W
+        E -> S
+        W -> N
+      }
+
+  private fun turnLeft(): Orientation =
+      when (orientation) {
+        N -> W
+        S -> E
+        E -> N
+        W -> S
+      }
 }
