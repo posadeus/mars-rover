@@ -3,11 +3,15 @@ package com.posadeus.rover.domain
 import com.posadeus.rover.domain.Orientation.*
 import com.posadeus.rover.domain.exception.CommandNotFoundException
 import com.posadeus.rover.domain.exception.WrongCoordinateException
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertTrue
 
 class RoverTest {
+
+  private val movement = mockk<Movement>()
 
   //  region initial position
   @Test
@@ -65,10 +69,21 @@ class RoverTest {
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
 
-    assertTrue { Rover(mars, Coordinate(0, 0), N).execute(arrayOf('f')) == Rover(mars, Coordinate(0, 1), N) }
-    assertTrue { Rover(mars, Coordinate(0, 0), E).execute(arrayOf('f')) == Rover(mars, Coordinate(1, 0), E) }
-    assertTrue { Rover(mars, Coordinate(0, 0), S).execute(arrayOf('f')) == Rover(mars, Coordinate(0, -1), S) }
-    assertTrue { Rover(mars, Coordinate(0, 0), W).execute(arrayOf('f')) == Rover(mars, Coordinate(-1, 0), W) }
+    val startCoordinate = Coordinate(0, 0)
+    val roverN = Rover(mars, startCoordinate, N, movement)
+    val roverE = Rover(mars, startCoordinate, E, movement)
+    val roverS = Rover(mars, startCoordinate, S, movement)
+    val roverW = Rover(mars, startCoordinate, W, movement)
+
+    every { movement.move(startCoordinate, 'f', N) } returns Coordinate(0, 1)
+    every { movement.move(startCoordinate, 'f', E) } returns Coordinate(1, 0)
+    every { movement.move(startCoordinate, 'f', S) } returns Coordinate(0, -1)
+    every { movement.move(startCoordinate, 'f', W) } returns Coordinate(-1, 0)
+
+    assertTrue { roverN.executeNew(arrayOf('f')) == Rover(mars, Coordinate(0, 1), N) }
+    assertTrue { roverE.executeNew(arrayOf('f')) == Rover(mars, Coordinate(1, 0), E) }
+    assertTrue { roverS.executeNew(arrayOf('f')) == Rover(mars, Coordinate(0, -1), S) }
+    assertTrue { roverW.executeNew(arrayOf('f')) == Rover(mars, Coordinate(-1, 0), W) }
   }
 
   @Test
