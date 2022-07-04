@@ -1,8 +1,10 @@
 package com.posadeus.rover.domain
 
 import com.posadeus.rover.domain.Orientation.*
+import com.posadeus.rover.domain.exception.CommandNotFoundException
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 internal class MovementTest {
 
@@ -24,5 +26,11 @@ internal class MovementTest {
     assertTrue { movement.move(Coordinate(0, 0), 'b', E) == Coordinate(-1, 0) }
     assertTrue { movement.move(Coordinate(0, 0), 'b', S) == Coordinate(0, 1) }
     assertTrue { movement.move(Coordinate(0, 0), 'b', W) == Coordinate(1, 0) }
+  }
+
+  @Test
+  internal fun `move command not found`() {
+
+    assertThrows<CommandNotFoundException> { movement.move(Coordinate(0, 0), 'k', N) }
   }
 }
