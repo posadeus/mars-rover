@@ -36,86 +36,6 @@ class RoverTest {
 
   // region moves
   @Test
-  internal fun `move forward on Y with N orientation`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), N)
-
-    assertTrue { rover.move('f') == Rover(mars, Coordinate(0, 1), N) }
-  }
-
-  @Test
-  internal fun `move forward on Y with S orientation`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), S)
-
-    assertTrue { rover.move('f') == Rover(mars, Coordinate(0, -1), S) }
-  }
-
-  @Test
-  internal fun `move forward on X with E orientation`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), E)
-
-    assertTrue { rover.move('f') == Rover(mars, Coordinate(1, 0), E) }
-  }
-
-  @Test
-  internal fun `move forward on X with W orientation`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), W)
-
-    assertTrue { rover.move('f') == Rover(mars, Coordinate(-1, 0), W) }
-  }
-
-  @Test
-  internal fun `move backward on Y with orientation N`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), N)
-
-    assertTrue { rover.move('b') == Rover(mars, Coordinate(0, -1), N) }
-  }
-
-  @Test
-  internal fun `move backward on Y with orientation S`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), S)
-
-    assertTrue { rover.move('b') == Rover(mars, Coordinate(0, 1), S) }
-  }
-
-  @Test
-  internal fun `move backward on X with orientation E`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), E)
-
-    assertTrue { rover.move('b') == Rover(mars, Coordinate(-1, 0), E) }
-  }
-
-  @Test
-  internal fun `move backward on X with orientation W`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), W)
-
-    assertTrue { rover.move('b') == Rover(mars, Coordinate(1, 0), W) }
-  }
-
-  @Test
   internal fun `move command not found`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
@@ -139,6 +59,54 @@ class RoverTest {
   // endregion
 
   @Test
+  internal fun `execute all forward direction commands`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    assertTrue { Rover(mars, Coordinate(0, 0), N).execute(arrayOf('f')) == Rover(mars, Coordinate(0, 1), N) }
+    assertTrue { Rover(mars, Coordinate(0, 0), E).execute(arrayOf('f')) == Rover(mars, Coordinate(1, 0), E) }
+    assertTrue { Rover(mars, Coordinate(0, 0), S).execute(arrayOf('f')) == Rover(mars, Coordinate(0, -1), S) }
+    assertTrue { Rover(mars, Coordinate(0, 0), W).execute(arrayOf('f')) == Rover(mars, Coordinate(-1, 0), W) }
+  }
+
+  @Test
+  internal fun `execute all backward direction commands`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    assertTrue { Rover(mars, Coordinate(0, 0), N).execute(arrayOf('b')) == Rover(mars, Coordinate(0, -1), N) }
+    assertTrue { Rover(mars, Coordinate(0, 0), E).execute(arrayOf('b')) == Rover(mars, Coordinate(-1, 0), E) }
+    assertTrue { Rover(mars, Coordinate(0, 0), S).execute(arrayOf('b')) == Rover(mars, Coordinate(0, 1), S) }
+    assertTrue { Rover(mars, Coordinate(0, 0), W).execute(arrayOf('b')) == Rover(mars, Coordinate(1, 0), W) }
+  }
+
+  @Test
+  internal fun `execute all turns right commands`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    assertTrue { Rover(mars, Coordinate(0, 0), N).execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), E) }
+    assertTrue { Rover(mars, Coordinate(0, 0), E).execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), S) }
+    assertTrue { Rover(mars, Coordinate(0, 0), S).execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), W) }
+    assertTrue { Rover(mars, Coordinate(0, 0), W).execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), N) }
+  }
+
+  @Test
+  internal fun `execute all turns left commands`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+
+    assertTrue { Rover(mars, Coordinate(0, 0), N).execute(arrayOf('l')) == Rover(mars, Coordinate(0, 0), W) }
+    assertTrue { Rover(mars, Coordinate(0, 0), E).execute(arrayOf('l')) == Rover(mars, Coordinate(0, 0), N) }
+    assertTrue { Rover(mars, Coordinate(0, 0), S).execute(arrayOf('l')) == Rover(mars, Coordinate(0, 0), E) }
+    assertTrue { Rover(mars, Coordinate(0, 0), W).execute(arrayOf('l')) == Rover(mars, Coordinate(0, 0), S) }
+  }
+
+  @Test
   internal fun `execute forward and backward commands`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
@@ -156,32 +124,6 @@ class RoverTest {
     val rover = Rover(mars, Coordinate(0, 0), N)
 
     assertTrue { rover.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(mars, Coordinate(1, 2), E) }
-  }
-
-  @Test
-  internal fun `execute all turns right commands`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), N)
-
-    assertTrue { rover.execute(arrayOf('r')) == Rover(mars, Coordinate(0, 0), E) }
-    assertTrue { rover.execute(arrayOf('r', 'r')) == Rover(mars, Coordinate(0, 0), S) }
-    assertTrue { rover.execute(arrayOf('r', 'r', 'r')) == Rover(mars, Coordinate(0, 0), W) }
-    assertTrue { rover.execute(arrayOf('r', 'r', 'r', 'r')) == Rover(mars, Coordinate(0, 0), N) }
-  }
-
-  @Test
-  internal fun `execute all turns left commands`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), N)
-
-    assertTrue { rover.execute(arrayOf('l')) == Rover(mars, Coordinate(0, 0), W) }
-    assertTrue { rover.execute(arrayOf('l', 'l')) == Rover(mars, Coordinate(0, 0), S) }
-    assertTrue { rover.execute(arrayOf('l', 'l', 'l')) == Rover(mars, Coordinate(0, 0), E) }
-    assertTrue { rover.execute(arrayOf('l', 'l', 'l', 'l')) == Rover(mars, Coordinate(0, 0), N) }
   }
 
   @Test
