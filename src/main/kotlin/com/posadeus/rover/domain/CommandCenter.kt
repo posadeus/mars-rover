@@ -4,49 +4,41 @@ import com.posadeus.rover.domain.exception.CommandNotFoundException
 import com.posadeus.rover.domain.exception.WrongCoordinateException
 
 data class CommandCenter(private val mars: Mars,
-                         private val coordinate: Coordinate,
-                         val orientation: Orientation,
-                         val movement: Movement,
-                         val turn: Turn) {
+                         private val rover: Rover,
+                         private val movement: Movement,
+                         private val turn: Turn) {
 
   fun position(): Coordinate =
-      if (mars.isValidCoordinate(coordinate))
-        coordinate
+      if (mars.isValidCoordinate(rover.coordinate))
+        rover.coordinate
       else
         throw WrongCoordinateException()
 
-  fun execute(commands: Array<Char>): CommandCenter {
+  fun orientation(): Orientation =
+      rover.orientation
 
-    tailrec fun go(commands: Iterator<Char>, commandCenter: CommandCenter): CommandCenter {
+  fun execute(commands: Array<Char>): Rover {
+
+    tailrec fun go(commands: Iterator<Char>, rover: Rover): Rover {
 
       return if (commands.hasNext()) {
 
         when (val command = commands.next()) {
-          'f', 'b' -> go(commands,
-                         move(commandCenter.movement.move(commandCenter.coordinate, command, commandCenter.orientation),
-                              commandCenter))
-          'r', 'l' -> go(commands, turn(commandCenter.turn.turn(command, commandCenter.orientation), commandCenter))
+          'f', 'b' -> go(commands, move(movement.move(rover.coordinate, command, rover.orientation), rover))
+          'r', 'l' -> go(commands, turn(turn.turn(command, rover.orientation), rover))
           else -> throw CommandNotFoundException()
         }
       }
       else
-        commandCenter
+        rover
     }
 
-    return go(commands.iterator(), this)
+    return go(commands.iterator(), rover)
   }
 
-  private fun move(coordinate: Coordinate, commandCenter: CommandCenter): CommandCenter =
-      CommandCenter(commandCenter.mars,
-                    coordinate,
-                    commandCenter.orientation,
-                    commandCenter.movement,
-                    commandCenter.turn)
+  private fun move(coordinate: Coordinate, rover: Rover): Rover =
+      Rover(coordinate, rover.orientation)
 
-  private fun turn(orientation: Orientation, commandCenter: CommandCenter): CommandCenter =
-      CommandCenter(commandCenter.mars,
-                    commandCenter.coordinate,
-                    orientation,
-                    commandCenter.movement,
-                    commandCenter.turn)
+  private fun turn(orientation: Orientation, rover: Rover): Rover =
+      Rover(rover.coordinate, orientation)
 }
