@@ -58,6 +58,7 @@ class RoverTest {
   }
   // endregion
 
+  // region execute moves
   @Test
   internal fun `execute all forward direction commands`() {
 
@@ -81,7 +82,9 @@ class RoverTest {
     assertTrue { Rover(mars, Coordinate(0, 0), S).execute(arrayOf('b')) == Rover(mars, Coordinate(0, 1), S) }
     assertTrue { Rover(mars, Coordinate(0, 0), W).execute(arrayOf('b')) == Rover(mars, Coordinate(1, 0), W) }
   }
+  // endregion
 
+  // region execute turns
   @Test
   internal fun `execute all turns right commands`() {
 
@@ -105,7 +108,9 @@ class RoverTest {
     assertTrue { Rover(mars, Coordinate(0, 0), S).execute(arrayOf('l')) == Rover(mars, Coordinate(0, 0), E) }
     assertTrue { Rover(mars, Coordinate(0, 0), W).execute(arrayOf('l')) == Rover(mars, Coordinate(0, 0), S) }
   }
+  // endregion
 
+  // region execute sequence
   @Test
   internal fun `execute forward and backward commands`() {
 
@@ -125,7 +130,9 @@ class RoverTest {
 
     assertTrue { rover.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(mars, Coordinate(1, 2), E) }
   }
+  // endregion
 
+  // region execute exceptions
   @Test
   internal fun `execute command not found`() {
 
@@ -135,4 +142,5 @@ class RoverTest {
 
     assertThrows<CommandNotFoundException> { rover.execute(arrayOf('k')) }
   }
+  // endregion
 }
