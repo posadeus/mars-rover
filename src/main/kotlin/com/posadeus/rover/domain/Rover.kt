@@ -14,15 +14,15 @@ data class Rover(private val mars: Mars,
       else
         throw WrongCoordinateException()
 
-  fun execute(movements: Array<Char>): Rover {
+  fun execute(commands: Array<Char>): Rover {
 
-    tailrec fun go(movements: Iterator<Char>, rover: Rover): Rover {
+    tailrec fun go(commands: Iterator<Char>, rover: Rover): Rover {
 
-      return if (movements.hasNext()) {
+      return if (commands.hasNext()) {
 
-        when (val movement = movements.next()) {
-          'f', 'b' -> go(movements, rover.move(movement))
-          'r', 'l' -> go(movements, rover.turn(movement))
+        when (val command = commands.next()) {
+          'f', 'b' -> go(commands, rover.move(command))
+          'r', 'l' -> go(commands, rover.turn(command))
           else -> throw CommandNotFoundException()
         }
       }
@@ -30,7 +30,7 @@ data class Rover(private val mars: Mars,
         rover
     }
 
-    return go(movements.iterator(), this)
+    return go(commands.iterator(), this)
   }
 
   fun move(movement: Char): Rover =
@@ -42,10 +42,10 @@ data class Rover(private val mars: Mars,
             },
             orientation)
 
-  fun turn(movement: Char): Rover =
+  fun turn(turn: Char): Rover =
       Rover(mars,
             coordinate,
-            when (movement) {
+            when (turn) {
               'r' -> turnRight()
               'l' -> turnLeft()
               else -> throw CommandNotFoundException()
