@@ -7,8 +7,8 @@ import com.posadeus.rover.domain.exception.WrongCoordinateException
 data class Rover(private val mars: Mars,
                  private val coordinate: Coordinate,
                  val orientation: Orientation,
-                 val movement: Movement? = null,
-                 val turn: Turn? = null) {
+                 val movement: Movement,
+                 val turn: Turn) {
 
   fun position(): Coordinate =
       if (mars.isValidCoordinate(coordinate))
@@ -43,8 +43,8 @@ data class Rover(private val mars: Mars,
       return if (commands.hasNext()) {
 
         when (val command = commands.next()) {
-          'f', 'b' -> go(commands, move(movement!!.move(rover.coordinate, command, rover.orientation)))
-          'r', 'l' -> go(commands, turn(turn!!.turn(command, rover.orientation)))
+          'f', 'b' -> go(commands, move(rover.movement.move(rover.coordinate, command, rover.orientation), rover))
+          'r', 'l' -> go(commands, turn(rover.turn.turn(command, rover.orientation), rover))
           else -> throw CommandNotFoundException()
         }
       }
@@ -63,7 +63,7 @@ data class Rover(private val mars: Mars,
               'b' -> backward()
               else -> throw CommandNotFoundException()
             },
-            orientation)
+            orientation, this.movement, turn)
 
   @Deprecated("To remove")
   fun turn(turn: Char): Rover =
@@ -73,13 +73,13 @@ data class Rover(private val mars: Mars,
               'r' -> turnRight()
               'l' -> turnLeft()
               else -> throw CommandNotFoundException()
-            })
+            }, movement, this.turn)
 
-  private fun move(coordinate: Coordinate): Rover =
-      Rover(mars, coordinate, orientation)
+  private fun move(coordinate: Coordinate, rover: Rover): Rover =
+      Rover(rover.mars, coordinate, rover.orientation, rover.movement, rover.turn)
 
-  private fun turn(orientation: Orientation): Rover =
-      Rover(mars, coordinate, orientation)
+  private fun turn(orientation: Orientation, rover: Rover): Rover =
+      Rover(rover.mars, rover.coordinate, orientation, rover.movement, rover.turn)
 
   private fun forward(): Coordinate =
       when (orientation) {
