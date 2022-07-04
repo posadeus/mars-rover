@@ -39,30 +39,6 @@ class RoverTest {
   }
 // endregion
 
-  // region moves
-  @Test
-  internal fun `move command not found`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), N, movement, turn)
-
-    assertThrows<CommandNotFoundException> { rover.move('k') }
-  }
-  // endregion
-
-  // region turns
-  @Test
-  internal fun `turn command not found`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), N, movement, turn)
-
-    assertThrows<CommandNotFoundException> { rover.turn('k') }
-  }
-  // endregion
-
   // region execute moves
   @Test
   internal fun `execute all forward direction commands`() {
