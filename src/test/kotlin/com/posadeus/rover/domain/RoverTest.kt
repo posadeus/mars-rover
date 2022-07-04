@@ -293,4 +293,14 @@ class RoverTest {
 
     assertTrue { rover.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(mars, Coordinate(1, 2), E) }
   }
+
+  @Test
+  internal fun `execute command not found`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), N)
+
+    assertThrows<CommandNotFoundException> { rover.execute(arrayOf('k')) }
+  }
 }
