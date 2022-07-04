@@ -22,7 +22,7 @@ data class Rover(private val mars: Mars,
         W -> Coordinate(coordinate.x - 1, coordinate.y)
       }
 
-  fun backward(): Coordinate =
+  private fun backward(): Coordinate =
       when (orientation) {
         N -> Coordinate(coordinate.x, coordinate.y - 1)
         S -> Coordinate(coordinate.x, coordinate.y + 1)

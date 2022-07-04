@@ -34,48 +34,6 @@ class RoverTest {
   }
 // endregion
 
-  // region plan move backward
-  @Test
-  internal fun `plan move backward on Y with orientation N`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), N)
-
-    assertTrue { rover.backward() == Coordinate(0, -1) }
-  }
-
-  @Test
-  internal fun `plan move backward on Y with orientation S`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), S)
-
-    assertTrue { rover.backward() == Coordinate(0, 1) }
-  }
-
-  @Test
-  internal fun `plan move backward on X with orientation E`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), E)
-
-    assertTrue { rover.backward() == Coordinate(-1, 0) }
-  }
-
-  @Test
-  internal fun `plan move backward on X with orientation W`() {
-
-    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
-                    arrayOf(-2, -1, 0, 1, 2))
-    val rover = Rover(mars, Coordinate(0, 0), W)
-
-    assertTrue { rover.backward() == Coordinate(1, 0) }
-  }
-//  endregion
-
   // region moves
   @Test
   internal fun `move forward on Y with N orientation`() {
@@ -118,13 +76,43 @@ class RoverTest {
   }
 
   @Test
-  internal fun `move backward`() {
+  internal fun `move backward on Y with orientation N`() {
 
     val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                     arrayOf(-2, -1, 0, 1, 2))
     val rover = Rover(mars, Coordinate(0, 0), N)
 
     assertTrue { rover.move('b') == Rover(mars, Coordinate(0, -1), N) }
+  }
+
+  @Test
+  internal fun `move backward on Y with orientation S`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), S)
+
+    assertTrue { rover.move('b') == Rover(mars, Coordinate(0, 1), S) }
+  }
+
+  @Test
+  internal fun `move backward on X with orientation E`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), E)
+
+    assertTrue { rover.move('b') == Rover(mars, Coordinate(-1, 0), E) }
+  }
+
+  @Test
+  internal fun `move backward on X with orientation W`() {
+
+    val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
+                    arrayOf(-2, -1, 0, 1, 2))
+    val rover = Rover(mars, Coordinate(0, 0), W)
+
+    assertTrue { rover.move('b') == Rover(mars, Coordinate(1, 0), W) }
   }
 
   @Test
