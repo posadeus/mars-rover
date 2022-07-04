@@ -44,8 +44,7 @@ data class Rover(private val mars: Mars,
 
         when (val command = commands.next()) {
           'f', 'b' -> go(commands, move(movement!!.move(rover.coordinate, command, rover.orientation)))
-          'r' -> go(commands, turn(turn!!.turn(command, rover.orientation)))
-          'l' -> go(commands, rover.turn(command))
+          'r', 'l' -> go(commands, turn(turn!!.turn(command, rover.orientation)))
           else -> throw CommandNotFoundException()
         }
       }
