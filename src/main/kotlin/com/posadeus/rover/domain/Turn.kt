@@ -5,7 +5,8 @@ import com.posadeus.rover.domain.exception.CommandNotFoundException
 
 class Turn {
 
-  fun turn(command: Char, orientation: Orientation): Orientation =
+  fun turn(command: Char,
+           orientation: Orientation): Orientation =
       when (command) {
         'r' -> turnRight(orientation)
         'l' -> turnLeft(orientation)

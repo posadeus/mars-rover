@@ -23,7 +23,8 @@ class Movement {
         W -> Coordinate(coordinate.x - 1, coordinate.y)
       }
 
-  private fun backward(coordinate: Coordinate, orientation: Orientation): Coordinate =
+  private fun backward(coordinate: Coordinate,
+                       orientation: Orientation): Coordinate =
       when (orientation) {
         N -> Coordinate(coordinate.x, coordinate.y - 1)
         S -> Coordinate(coordinate.x, coordinate.y + 1)
