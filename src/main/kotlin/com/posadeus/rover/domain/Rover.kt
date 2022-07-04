@@ -15,6 +15,7 @@ data class Rover(private val mars: Mars,
       else
         throw WrongCoordinateException()
 
+  @Deprecated("Use executeNew")
   fun execute(commands: Array<Char>): Rover {
 
     tailrec fun go(commands: Iterator<Char>, rover: Rover): Rover {
