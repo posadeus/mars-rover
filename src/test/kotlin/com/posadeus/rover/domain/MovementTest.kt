@@ -38,6 +38,15 @@ internal class MovementTest {
   }
 
   @Test
+  internal fun `move backward over the edges`() {
+
+    assertTrue { movement.move(mars, Coordinate(0, 0), 'b', N) == Coordinate(0, 4) }
+    assertTrue { movement.move(mars, Coordinate(0, 0), 'b', E) == Coordinate(4, 0) }
+    assertTrue { movement.move(mars, Coordinate(0, 4), 'b', S) == Coordinate(0, 0) }
+    assertTrue { movement.move(mars, Coordinate(4, 0), 'b', W) == Coordinate(0, 0) }
+  }
+
+  @Test
   internal fun `move command not found`() {
 
     assertThrows<CommandNotFoundException> {

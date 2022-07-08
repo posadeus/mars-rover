@@ -11,7 +11,7 @@ class Movement {
            orientation: Orientation): Coordinate =
       when (command) {
         'f' -> forward(mars, coordinate, orientation)
-        'b' -> backward(coordinate, orientation)
+        'b' -> backward(mars, coordinate, orientation)
         else -> throw CommandNotFoundException()
       }
 
@@ -33,13 +33,14 @@ class Movement {
                         coordinate.y)
       }
 
-  private fun backward(coordinate: Coordinate,
+  private fun backward(mars: Mars?,
+                       coordinate: Coordinate,
                        orientation: Orientation): Coordinate =
       when (orientation) {
-        N -> Coordinate(coordinate.x, coordinate.y - 1)
-        S -> Coordinate(coordinate.x, coordinate.y + 1)
-        E -> Coordinate(coordinate.x - 1, coordinate.y)
-        W -> Coordinate(coordinate.x + 1, coordinate.y)
+        N -> forward(mars, coordinate, S)
+        S -> forward(mars, coordinate, N)
+        E -> forward(mars, coordinate, W)
+        W -> forward(mars, coordinate, E)
       }
 
   private fun movementWithPossiblePacManEffect(mars: Mars?,
