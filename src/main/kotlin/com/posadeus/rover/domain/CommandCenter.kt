@@ -9,7 +9,7 @@ data class CommandCenter(private val mars: Mars,
                          private val turn: Turn) {
 
   fun position(): Coordinate =
-      if (mars.isValidCoordinateNew(rover.coordinate))
+      if (mars.isValidCoordinate(rover.coordinate))
         rover.coordinate
       else
         throw WrongCoordinateException()

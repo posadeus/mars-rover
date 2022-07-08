@@ -17,8 +17,8 @@ class MarsTest {
                             arrayOf(null, null, null, null, Obstacle),
                             arrayOf(null, Obstacle, Obstacle, null, null)))
 
-    assertTrue { mars.isValidCoordinateNew(Coordinate(1, 1)) }
-    assertFalse { mars.isValidCoordinateNew(Coordinate(-3, 1)) }
+    assertTrue { mars.isValidCoordinate(Coordinate(1, 1)) }
+    assertFalse { mars.isValidCoordinate(Coordinate(-3, 1)) }
   }
 
   @Test
@@ -32,7 +32,7 @@ class MarsTest {
                             arrayOf(null, null, null, null, Obstacle),
                             arrayOf(null, Obstacle, Obstacle, null, null)))
 
-    assertTrue { mars.hasObstacleNew(Coordinate(0, 3)) }
-    assertFalse { mars.hasObstacleNew(Coordinate(1, 2)) }
+    assertTrue { mars.hasObstacle(Coordinate(0, 3)) }
+    assertFalse { mars.hasObstacle(Coordinate(1, 2)) }
   }
 }
