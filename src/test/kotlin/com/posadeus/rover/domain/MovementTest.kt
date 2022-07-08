@@ -32,7 +32,6 @@ internal class MovementTest {
   internal fun `move forward over the edges on Y`() {
 
     assertTrue { movement.move(mars, Coordinate(0, 4), 'f', N) == Coordinate(0, 0) }
-    assertTrue { movement.move(mars, Coordinate(0, 3), 'f', N) == Coordinate(0, 4) }
     assertTrue { movement.move(mars, Coordinate(0, 0), 'f', S) == Coordinate(0, 4) }
   }
 
