@@ -26,7 +26,7 @@ class Movement {
         S -> Coordinate(coordinate.x,
                         move(isMovingInsideEdges(mars, coordinate) { Coordinate(coordinate.x, coordinate.y - 1) },
                              coordinate.y - 1,
-                             mars.coordinates[coordinate.y].size - 1))
+                             mars.coordinates[coordinate.x].size - 1))
         E -> Coordinate(move(isMovingInsideEdges(mars, coordinate) { Coordinate(coordinate.x + 1, coordinate.y) },
                              coordinate.x + 1,
                              0),
