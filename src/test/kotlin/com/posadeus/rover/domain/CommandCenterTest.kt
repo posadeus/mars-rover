@@ -20,7 +20,7 @@ class CommandCenterTest {
 
     val rover = Rover(Coordinate(0, 0), N)
 
-    val commandCenter = CommandCenter(Companion.mars, rover, movement, turn)
+    val commandCenter = CommandCenter(mars, rover, movement, turn)
 
     assertTrue { commandCenter.position() == Coordinate(0, 0) }
     assertTrue { commandCenter.orientation() == N }
@@ -31,7 +31,7 @@ class CommandCenterTest {
 
     val rover = Rover(Coordinate(-3, 0), N)
 
-    val commandCenter = CommandCenter(Companion.mars, rover, movement, turn)
+    val commandCenter = CommandCenter(mars, rover, movement, turn)
 
     assertThrows<WrongCoordinateException> { commandCenter.position() }
   }
@@ -47,10 +47,10 @@ class CommandCenterTest {
     val roverW = Rover(Coordinate(0, 0), W)
 
     val startCoordinate = Coordinate(0, 0)
-    val commandCenterN = CommandCenter(Companion.mars, roverN, movement, turn)
-    val commandCenterE = CommandCenter(Companion.mars, roverE, movement, turn)
-    val commandCenterS = CommandCenter(Companion.mars, roverS, movement, turn)
-    val commandCenterW = CommandCenter(Companion.mars, roverW, movement, turn)
+    val commandCenterN = CommandCenter(mars, roverN, movement, turn)
+    val commandCenterE = CommandCenter(mars, roverE, movement, turn)
+    val commandCenterS = CommandCenter(mars, roverS, movement, turn)
+    val commandCenterW = CommandCenter(mars, roverW, movement, turn)
 
     every { movement.move(startCoordinate, 'f', N) } returns Coordinate(0, 1)
     every { movement.move(startCoordinate, 'f', E) } returns Coordinate(1, 0)
@@ -72,10 +72,10 @@ class CommandCenterTest {
     val roverW = Rover(Coordinate(0, 0), W)
 
     val startCoordinate = Coordinate(0, 0)
-    val commandCenterN = CommandCenter(Companion.mars, roverN, movement, turn)
-    val commandCenterE = CommandCenter(Companion.mars, roverE, movement, turn)
-    val commandCenterS = CommandCenter(Companion.mars, roverS, movement, turn)
-    val commandCenterW = CommandCenter(Companion.mars, roverW, movement, turn)
+    val commandCenterN = CommandCenter(mars, roverN, movement, turn)
+    val commandCenterE = CommandCenter(mars, roverE, movement, turn)
+    val commandCenterS = CommandCenter(mars, roverS, movement, turn)
+    val commandCenterW = CommandCenter(mars, roverW, movement, turn)
 
     every { movement.move(startCoordinate, 'b', N) } returns Coordinate(0, -1)
     every { movement.move(startCoordinate, 'b', E) } returns Coordinate(-1, 0)
@@ -99,10 +99,10 @@ class CommandCenterTest {
     val roverW = Rover(Coordinate(0, 0), W)
 
     val startCoordinate = Coordinate(0, 0)
-    val commandCenterN = CommandCenter(Companion.mars, roverN, movement, turn)
-    val commandCenterE = CommandCenter(Companion.mars, roverE, movement, turn)
-    val commandCenterS = CommandCenter(Companion.mars, roverS, movement, turn)
-    val commandCenterW = CommandCenter(Companion.mars, roverW, movement, turn)
+    val commandCenterN = CommandCenter(mars, roverN, movement, turn)
+    val commandCenterE = CommandCenter(mars, roverE, movement, turn)
+    val commandCenterS = CommandCenter(mars, roverS, movement, turn)
+    val commandCenterW = CommandCenter(mars, roverW, movement, turn)
 
     every { turn.turn('r', N) } returns E
     every { turn.turn('r', E) } returns S
@@ -124,10 +124,10 @@ class CommandCenterTest {
     val roverW = Rover(Coordinate(0, 0), W)
 
     val startCoordinate = Coordinate(0, 0)
-    val commandCenterN = CommandCenter(Companion.mars, roverN, movement, turn)
-    val commandCenterE = CommandCenter(Companion.mars, roverE, movement, turn)
-    val commandCenterS = CommandCenter(Companion.mars, roverS, movement, turn)
-    val commandCenterW = CommandCenter(Companion.mars, roverW, movement, turn)
+    val commandCenterN = CommandCenter(mars, roverN, movement, turn)
+    val commandCenterE = CommandCenter(mars, roverE, movement, turn)
+    val commandCenterS = CommandCenter(mars, roverS, movement, turn)
+    val commandCenterW = CommandCenter(mars, roverW, movement, turn)
 
     every { turn.turn('l', N) } returns W
     every { turn.turn('l', E) } returns N
@@ -148,7 +148,7 @@ class CommandCenterTest {
     val rover = Rover(Coordinate(0, 0), N)
     val movement = Movement()
     val turn = Turn()
-    val commandCenter = CommandCenter(Companion.mars, rover, movement, turn)
+    val commandCenter = CommandCenter(mars, rover, movement, turn)
 
     assertTrue { commandCenter.execute(arrayOf('f', 'f', 'b')) == Rover(Coordinate(0, 1), N) }
   }
@@ -159,7 +159,7 @@ class CommandCenterTest {
     val rover = Rover(Coordinate(0, 0), N)
     val moves = Movement()
     val turns = Turn()
-    val commandCenter = CommandCenter(Companion.mars, rover, moves, turns)
+    val commandCenter = CommandCenter(mars, rover, moves, turns)
 
     assertTrue { commandCenter.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(Coordinate(1, 2), E) }
   }
@@ -172,7 +172,7 @@ class CommandCenterTest {
     val rover = Rover(Coordinate(0, 0), N)
     val movement = Movement()
     val turn = Turn()
-    val commandCenter = CommandCenter(Companion.mars, rover, movement, turn)
+    val commandCenter = CommandCenter(mars, rover, movement, turn)
 
     assertThrows<CommandNotFoundException> { commandCenter.execute(arrayOf('k')) }
   }
