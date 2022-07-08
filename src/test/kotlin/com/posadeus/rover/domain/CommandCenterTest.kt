@@ -169,7 +169,7 @@ class CommandCenterTest {
   @Test
   internal fun `execute command not found`() {
 
-    val rover = Rover(Coordinate(0, 0), N)
+    val rover = Rover(Coordinate(2, 2), N)
     val movement = Movement()
     val turn = Turn()
     val commandCenter = CommandCenter(mars, rover, movement, turn)
