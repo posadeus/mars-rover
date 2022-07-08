@@ -177,6 +177,7 @@ class CommandCenterTest {
     assertThrows<CommandNotFoundException> { commandCenter.execute(arrayOf('k')) }
   }
   // endregion
+
   companion object {
 
     private val mars = Mars(arrayOf(arrayOf(Empty, Empty, Empty, Rock, Empty),
