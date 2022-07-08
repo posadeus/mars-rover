@@ -18,18 +18,18 @@ class CommandCenterTest {
   @Test
   internal fun `rover initial position`() {
 
-    val rover = Rover(Coordinate(0, 0), N)
+    val rover = Rover(Coordinate(2, 2), N)
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    assertTrue { commandCenter.position() == Coordinate(0, 0) }
+    assertTrue { commandCenter.position() == Coordinate(2, 2) }
     assertTrue { commandCenter.orientation() == N }
   }
 
   @Test
   internal fun `rover wrong initial position`() {
 
-    val rover = Rover(Coordinate(-3, 0), N)
+    val rover = Rover(Coordinate(6, 0), N)
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
