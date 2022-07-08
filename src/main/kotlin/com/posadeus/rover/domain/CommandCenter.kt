@@ -29,7 +29,8 @@ data class CommandCenter(private val mars: Mars,
                                               command,
                                               rover.orientation),
                                 rover))
-            'r', 'l' -> go(commands, turn(turn.turn(command, rover.orientation), rover))
+            'r', 'l' -> go(commands,
+                           turn(turn.turn(command, rover.orientation), rover))
             else -> throw CommandNotFoundException()
           }
         }
