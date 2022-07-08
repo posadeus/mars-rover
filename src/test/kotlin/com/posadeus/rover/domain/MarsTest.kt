@@ -34,9 +34,6 @@ class MarsTest {
                             arrayOf(null, null, null, null, Obstacle(Coordinate(3, 4))),
                             arrayOf(null, Obstacle(Coordinate(4, 1)), Obstacle(Coordinate(4, 2)), null, null)))
 
-    assertTrue { mars.hasObstacle(Coordinate(-1, -2)) }
-    assertFalse { mars.hasObstacle(Coordinate(1, -2)) }
-
     assertTrue { mars.hasObstacleNew(Coordinate(0, 3)) }
     assertFalse { mars.hasObstacleNew(Coordinate(1, 2)) }
   }

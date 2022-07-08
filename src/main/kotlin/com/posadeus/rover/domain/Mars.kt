@@ -11,10 +11,6 @@ class Mars(@Deprecated("use coordinates") private val x: Array<Int>,
       && coordinates.size >= coordinate.x
       && coordinates[coordinate.x].size >= coordinate.y
 
-  @Deprecated("coordinates reference changed: no negative coordinates")
-  fun hasObstacle(coordinate: Coordinate): Boolean =
-      obstacles.any { it.isPresent(coordinate) }
-
   fun hasObstacleNew(coordinate: Coordinate): Boolean =
       when (coordinates[coordinate.x][coordinate.y]) {
         is Obstacle -> true
