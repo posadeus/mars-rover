@@ -145,23 +145,23 @@ class CommandCenterTest {
   @Test
   internal fun `execute forward and backward commands`() {
 
-    val rover = Rover(Coordinate(0, 0), N)
+    val rover = Rover(Coordinate(2, 2), N)
     val movement = Movement()
     val turn = Turn()
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    assertTrue { commandCenter.execute(arrayOf('f', 'f', 'b')) == Rover(Coordinate(0, 1), N) }
+    assertTrue { commandCenter.execute(arrayOf('f', 'f', 'b')) == Rover(Coordinate(2, 3), N) }
   }
 
   @Test
   internal fun `execute forward and turns commands`() {
 
-    val rover = Rover(Coordinate(0, 0), N)
+    val rover = Rover(Coordinate(2, 2), N)
     val moves = Movement()
     val turns = Turn()
     val commandCenter = CommandCenter(mars, rover, moves, turns)
 
-    assertTrue { commandCenter.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(Coordinate(1, 2), E) }
+    assertTrue { commandCenter.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(Coordinate(3, 4), E) }
   }
   // endregion
 
