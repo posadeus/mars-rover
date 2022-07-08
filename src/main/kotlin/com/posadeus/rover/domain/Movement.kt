@@ -5,7 +5,7 @@ import com.posadeus.rover.domain.exception.CommandNotFoundException
 
 class Movement {
 
-  fun move(mars: Mars? = null,
+  fun move(mars: Mars,
            coordinate: Coordinate,
            command: Char,
            orientation: Orientation): Coordinate =
@@ -15,7 +15,7 @@ class Movement {
         else -> throw CommandNotFoundException()
       }
 
-  private fun forward(mars: Mars?,
+  private fun forward(mars: Mars,
                       coordinate: Coordinate,
                       orientation: Orientation): Coordinate =
       when (orientation) {
@@ -41,7 +41,7 @@ class Movement {
                         coordinate.y)
       }
 
-  private fun backward(mars: Mars?,
+  private fun backward(mars: Mars,
                        coordinate: Coordinate,
                        orientation: Orientation): Coordinate =
       when (orientation) {
@@ -57,6 +57,6 @@ class Movement {
       if (isMoveInsideEdges) insidePoint
       else pacmanPoint
 
-  private fun isMoveInsideEdges(mars: Mars?, coordinate: Coordinate, func: (Coordinate) -> Coordinate): Boolean =
-      mars?.isValidCoordinate(func(coordinate)) ?: true
+  private fun isMoveInsideEdges(mars: Mars, coordinate: Coordinate, func: (Coordinate) -> Coordinate): Boolean =
+      mars.isValidCoordinate(func(coordinate))
 }

@@ -46,7 +46,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { movement.move(coordinate = startCoordinate, command = 'f', orientation = N) } returns Coordinate(2, 3)
+    every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(2, 3)
 
     assertTrue { commandCenter.execute(arrayOf('f')) == Rover(Coordinate(2, 3), N) }
   }
@@ -59,7 +59,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { movement.move(coordinate = startCoordinate, command = 'b', orientation = N) } returns Coordinate(2, 1)
+    every { movement.move(mars, startCoordinate, 'b', N) } returns Coordinate(2, 1)
 
     assertTrue { commandCenter.execute(arrayOf('b')) == Rover(Coordinate(2, 1), N) }
   }
@@ -72,7 +72,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { movement.move(coordinate = startCoordinate, command = 'f', orientation = N) } returns Coordinate(4, 0)
+    every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(4, 0)
 
     assertTrue { commandCenter.execute(arrayOf('f')) == Rover(Coordinate(4, 0), N) }
   }

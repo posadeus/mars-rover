@@ -13,19 +13,19 @@ internal class MovementTest {
   @Test
   internal fun `move forward`() {
 
-    assertTrue { movement.move(coordinate = Coordinate(0, 0), command = 'f', orientation = N) == Coordinate(0, 1) }
-    assertTrue { movement.move(coordinate = Coordinate(0, 0), command = 'f', orientation = E) == Coordinate(1, 0) }
-    assertTrue { movement.move(coordinate = Coordinate(0, 0), command = 'f', orientation = S) == Coordinate(0, -1) }
-    assertTrue { movement.move(coordinate = Coordinate(0, 0), command = 'f', orientation = W) == Coordinate(-1, 0) }
+    assertTrue { movement.move(mars, Coordinate(2, 2), 'f', N) == Coordinate(2, 3) }
+    assertTrue { movement.move(mars, Coordinate(2, 2), 'f', E) == Coordinate(3, 2) }
+    assertTrue { movement.move(mars, Coordinate(2, 2), 'f', S) == Coordinate(2, 1) }
+    assertTrue { movement.move(mars, Coordinate(2, 2), 'f', W) == Coordinate(1, 2) }
   }
 
   @Test
   internal fun `move backward`() {
 
-    assertTrue { movement.move(coordinate = Coordinate(0, 0), command = 'b', orientation = N) == Coordinate(0, -1) }
-    assertTrue { movement.move(coordinate = Coordinate(0, 0), command = 'b', orientation = E) == Coordinate(-1, 0) }
-    assertTrue { movement.move(coordinate = Coordinate(0, 0), command = 'b', orientation = S) == Coordinate(0, 1) }
-    assertTrue { movement.move(coordinate = Coordinate(0, 0), command = 'b', orientation = W) == Coordinate(1, 0) }
+    assertTrue { movement.move(mars, Coordinate(2, 2), 'b', N) == Coordinate(2, 1) }
+    assertTrue { movement.move(mars, Coordinate(2, 2), 'b', E) == Coordinate(1, 2) }
+    assertTrue { movement.move(mars, Coordinate(2, 2), 'b', S) == Coordinate(2, 3) }
+    assertTrue { movement.move(mars, Coordinate(2, 2), 'b', W) == Coordinate(3, 2) }
   }
 
   @Test
@@ -49,11 +49,7 @@ internal class MovementTest {
   @Test
   internal fun `move command not found`() {
 
-    assertThrows<CommandNotFoundException> {
-      movement.move(coordinate = Coordinate(0, 0),
-                    command = 'k',
-                    orientation = N)
-    }
+    assertThrows<CommandNotFoundException> { movement.move(mars, Coordinate(0, 0), 'k', N) }
   }
 
   companion object {
