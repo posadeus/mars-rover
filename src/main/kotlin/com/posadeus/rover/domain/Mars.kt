@@ -2,7 +2,7 @@ package com.posadeus.rover.domain
 
 class Mars(@Deprecated("use coordinates") private val x: Array<Int>,
            @Deprecated("use coordinates") private val y: Array<Int>,
-           private val obstacles: Array<Obstacle> = emptyArray(),
+           @Deprecated("use coordinates") private val obstacles: Array<Obstacle> = emptyArray(),
            private val coordinates: Array<Array<Obstacle?>> = emptyArray()) {
 
   @Deprecated("coordinates reference changed: no negative coordinates")
