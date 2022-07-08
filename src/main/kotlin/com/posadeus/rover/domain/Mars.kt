@@ -5,10 +5,6 @@ class Mars(@Deprecated("use coordinates") private val x: Array<Int>,
            @Deprecated("use coordinates") private val obstacles: Array<Obstacle> = emptyArray(),
            private val coordinates: Array<Array<Obstacle?>> = emptyArray()) {
 
-  @Deprecated("coordinates reference changed: no negative coordinates")
-  fun isValidCoordinate(coordinate: Coordinate): Boolean =
-      this.x.any { it == coordinate.x } && this.y.any { it == coordinate.y }
-
   fun isValidCoordinateNew(coordinate: Coordinate): Boolean =
       coordinate.x >= 0
       && coordinate.y >= 0
