@@ -8,5 +8,5 @@ class Mars(private val x: Array<Int>,
       this.x.any { it == coordinate.x } && this.y.any { it == coordinate.y }
 
   fun hasObstacle(coordinate: Coordinate): Boolean =
-      obstacles.any { it.coordinate == coordinate }
+      obstacles.any { it.isPresent(coordinate) }
 }
