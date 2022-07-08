@@ -17,7 +17,7 @@ Second part
 
 Mars
 
-- [ ] Add obstacles
+- [X] Add obstacles
 - [ ] Add Pac-Man effects to Mars surface
 
 Rover
