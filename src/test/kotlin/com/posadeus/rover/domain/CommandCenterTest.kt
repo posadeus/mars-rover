@@ -87,7 +87,20 @@ class CommandCenterTest {
     assertTrue { commandCenterS.execute(arrayOf('b')) == Rover(Coordinate(2, 3), S) }
     assertTrue { commandCenterW.execute(arrayOf('b')) == Rover(Coordinate(3, 2), W) }
   }
-  // endregion
+
+  @Test
+  internal fun `execute moves over the edges`() {
+
+    val startCoordinate = Coordinate(4, 4)
+    val rover = Rover(startCoordinate, N)
+
+    val commandCenter = CommandCenter(mars, rover, movement, turn)
+
+    every { movement.move(startCoordinate, 'f', N) } returns Coordinate(4, 0)
+
+    assertTrue { commandCenter.execute(arrayOf('f')) == Rover(Coordinate(4, 0), N) }
+  }
+// endregion
 
   // region execute turns
   @Test
