@@ -57,6 +57,8 @@ class Movement {
       if (isMoveInsideEdges) insidePoint
       else pacmanPoint
 
-  private fun isMoveInsideEdges(mars: Mars, coordinate: Coordinate, func: (Coordinate) -> Coordinate): Boolean =
-      mars.isValidCoordinate(func(coordinate))
+  private fun isMoveInsideEdges(mars: Mars,
+                                coordinate: Coordinate,
+                                nextCoordinateFunc: (Coordinate) -> Coordinate): Boolean =
+      mars.isValidCoordinate(nextCoordinateFunc(coordinate))
 }
