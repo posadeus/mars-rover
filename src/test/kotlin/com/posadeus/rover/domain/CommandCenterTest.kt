@@ -41,51 +41,51 @@ class CommandCenterTest {
   @Test
   internal fun `execute all forward direction commands`() {
 
-    val roverN = Rover(Coordinate(0, 0), N)
-    val roverE = Rover(Coordinate(0, 0), E)
-    val roverS = Rover(Coordinate(0, 0), S)
-    val roverW = Rover(Coordinate(0, 0), W)
+    val roverN = Rover(Coordinate(2, 2), N)
+    val roverE = Rover(Coordinate(2, 2), E)
+    val roverS = Rover(Coordinate(2, 2), S)
+    val roverW = Rover(Coordinate(2, 2), W)
 
-    val startCoordinate = Coordinate(0, 0)
+    val startCoordinate = Coordinate(2, 2)
     val commandCenterN = CommandCenter(mars, roverN, movement, turn)
     val commandCenterE = CommandCenter(mars, roverE, movement, turn)
     val commandCenterS = CommandCenter(mars, roverS, movement, turn)
     val commandCenterW = CommandCenter(mars, roverW, movement, turn)
 
-    every { movement.move(startCoordinate, 'f', N) } returns Coordinate(0, 1)
-    every { movement.move(startCoordinate, 'f', E) } returns Coordinate(1, 0)
-    every { movement.move(startCoordinate, 'f', S) } returns Coordinate(0, -1)
-    every { movement.move(startCoordinate, 'f', W) } returns Coordinate(-1, 0)
+    every { movement.move(startCoordinate, 'f', N) } returns Coordinate(2, 3)
+    every { movement.move(startCoordinate, 'f', E) } returns Coordinate(3, 2)
+    every { movement.move(startCoordinate, 'f', S) } returns Coordinate(2, 1)
+    every { movement.move(startCoordinate, 'f', W) } returns Coordinate(1, 2)
 
-    assertTrue { commandCenterN.execute(arrayOf('f')) == Rover(Coordinate(0, 1), N) }
-    assertTrue { commandCenterE.execute(arrayOf('f')) == Rover(Coordinate(1, 0), E) }
-    assertTrue { commandCenterS.execute(arrayOf('f')) == Rover(Coordinate(0, -1), S) }
-    assertTrue { commandCenterW.execute(arrayOf('f')) == Rover(Coordinate(-1, 0), W) }
+    assertTrue { commandCenterN.execute(arrayOf('f')) == Rover(Coordinate(2, 3), N) }
+    assertTrue { commandCenterE.execute(arrayOf('f')) == Rover(Coordinate(3, 2), E) }
+    assertTrue { commandCenterS.execute(arrayOf('f')) == Rover(Coordinate(2, 1), S) }
+    assertTrue { commandCenterW.execute(arrayOf('f')) == Rover(Coordinate(1, 2), W) }
   }
 
   @Test
   internal fun `execute all backward direction commands`() {
 
-    val roverN = Rover(Coordinate(0, 0), N)
-    val roverE = Rover(Coordinate(0, 0), E)
-    val roverS = Rover(Coordinate(0, 0), S)
-    val roverW = Rover(Coordinate(0, 0), W)
+    val roverN = Rover(Coordinate(2, 2), N)
+    val roverE = Rover(Coordinate(2, 2), E)
+    val roverS = Rover(Coordinate(2, 2), S)
+    val roverW = Rover(Coordinate(2, 2), W)
 
-    val startCoordinate = Coordinate(0, 0)
+    val startCoordinate = Coordinate(2, 2)
     val commandCenterN = CommandCenter(mars, roverN, movement, turn)
     val commandCenterE = CommandCenter(mars, roverE, movement, turn)
     val commandCenterS = CommandCenter(mars, roverS, movement, turn)
     val commandCenterW = CommandCenter(mars, roverW, movement, turn)
 
-    every { movement.move(startCoordinate, 'b', N) } returns Coordinate(0, -1)
-    every { movement.move(startCoordinate, 'b', E) } returns Coordinate(-1, 0)
-    every { movement.move(startCoordinate, 'b', S) } returns Coordinate(0, 1)
-    every { movement.move(startCoordinate, 'b', W) } returns Coordinate(1, 0)
+    every { movement.move(startCoordinate, 'b', N) } returns Coordinate(2, 1)
+    every { movement.move(startCoordinate, 'b', E) } returns Coordinate(1, 2)
+    every { movement.move(startCoordinate, 'b', S) } returns Coordinate(2, 3)
+    every { movement.move(startCoordinate, 'b', W) } returns Coordinate(3, 2)
 
-    assertTrue { commandCenterN.execute(arrayOf('b')) == Rover(Coordinate(0, -1), N) }
-    assertTrue { commandCenterE.execute(arrayOf('b')) == Rover(Coordinate(-1, 0), E) }
-    assertTrue { commandCenterS.execute(arrayOf('b')) == Rover(Coordinate(0, 1), S) }
-    assertTrue { commandCenterW.execute(arrayOf('b')) == Rover(Coordinate(1, 0), W) }
+    assertTrue { commandCenterN.execute(arrayOf('b')) == Rover(Coordinate(2, 1), N) }
+    assertTrue { commandCenterE.execute(arrayOf('b')) == Rover(Coordinate(1, 2), E) }
+    assertTrue { commandCenterS.execute(arrayOf('b')) == Rover(Coordinate(2, 3), S) }
+    assertTrue { commandCenterW.execute(arrayOf('b')) == Rover(Coordinate(3, 2), W) }
   }
   // endregion
 
