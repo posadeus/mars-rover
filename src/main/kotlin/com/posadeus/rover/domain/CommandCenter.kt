@@ -23,7 +23,9 @@ data class CommandCenter(private val mars: Mars,
         if (commands.hasNext()) {
 
           when (val command = commands.next()) {
-            'f', 'b' -> go(commands, move(movement.move(rover.coordinate, command, rover.orientation), rover))
+            'f', 'b' -> go(commands, move(movement.move(coordinate = rover.coordinate,
+                                                        command = command,
+                                                        orientation = rover.orientation), rover))
             'r', 'l' -> go(commands, turn(turn.turn(command, rover.orientation), rover))
             else -> throw CommandNotFoundException()
           }
