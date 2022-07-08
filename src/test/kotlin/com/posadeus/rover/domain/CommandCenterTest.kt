@@ -93,12 +93,12 @@ class CommandCenterTest {
   @Test
   internal fun `execute all turns right commands`() {
 
-    val roverN = Rover(Coordinate(0, 0), N)
-    val roverE = Rover(Coordinate(0, 0), E)
-    val roverS = Rover(Coordinate(0, 0), S)
-    val roverW = Rover(Coordinate(0, 0), W)
+    val roverN = Rover(Coordinate(2, 2), N)
+    val roverE = Rover(Coordinate(2, 2), E)
+    val roverS = Rover(Coordinate(2, 2), S)
+    val roverW = Rover(Coordinate(2, 2), W)
 
-    val startCoordinate = Coordinate(0, 0)
+    val startCoordinate = Coordinate(2, 2)
     val commandCenterN = CommandCenter(mars, roverN, movement, turn)
     val commandCenterE = CommandCenter(mars, roverE, movement, turn)
     val commandCenterS = CommandCenter(mars, roverS, movement, turn)
@@ -118,12 +118,12 @@ class CommandCenterTest {
   @Test
   internal fun `execute all turns left commands`() {
 
-    val roverN = Rover(Coordinate(0, 0), N)
-    val roverE = Rover(Coordinate(0, 0), E)
-    val roverS = Rover(Coordinate(0, 0), S)
-    val roverW = Rover(Coordinate(0, 0), W)
+    val roverN = Rover(Coordinate(2, 2), N)
+    val roverE = Rover(Coordinate(2, 2), E)
+    val roverS = Rover(Coordinate(2, 2), S)
+    val roverW = Rover(Coordinate(2, 2), W)
 
-    val startCoordinate = Coordinate(0, 0)
+    val startCoordinate = Coordinate(2, 2)
     val commandCenterN = CommandCenter(mars, roverN, movement, turn)
     val commandCenterE = CommandCenter(mars, roverE, movement, turn)
     val commandCenterS = CommandCenter(mars, roverS, movement, turn)
