@@ -181,11 +181,10 @@ class CommandCenterTest {
 
     private val mars = Mars(arrayOf(-2, -1, 0, 1, 2),
                             arrayOf(-2, -1, 0, 1, 2),
-                            emptyArray(),
-                            arrayOf(arrayOf(null, null, null, Obstacle(Coordinate(0, 3)), null),
-                                    arrayOf(null, Obstacle(Coordinate(1, 1)), null, null, null),
+                            arrayOf(arrayOf(null, null, null, Obstacle, null),
+                                    arrayOf(null, Obstacle, null, null, null),
                                     arrayOf(null, null, null, null, null),
-                                    arrayOf(null, null, null, null, Obstacle(Coordinate(3, 4))),
-                                    arrayOf(null, Obstacle(Coordinate(4, 1)), Obstacle(Coordinate(4, 2)), null, null)))
+                                    arrayOf(null, null, null, null, Obstacle),
+                                    arrayOf(null, Obstacle, Obstacle, null, null)))
   }
 }
