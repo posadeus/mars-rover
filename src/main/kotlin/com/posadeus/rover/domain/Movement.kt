@@ -20,16 +20,24 @@ class Movement {
                       orientation: Orientation): Coordinate =
       when (orientation) {
         N -> Coordinate(coordinate.x,
-                        movementWithPossiblePacManEffect(mars, coordinate, coordinate.y + 1, 0)
-                        { Coordinate(coordinate.x, coordinate.y + 1) })
+                        movementWithPossiblePacManEffect(isValidMovement(mars, coordinate)
+                                                         { Coordinate(coordinate.x, coordinate.y + 1) },
+                                                         coordinate.y + 1,
+                                                         0))
         S -> Coordinate(coordinate.x,
-                        movementWithPossiblePacManEffect(mars, coordinate, coordinate.y - 1, 4)
-                        { Coordinate(coordinate.x, coordinate.y - 1) })
-        E -> Coordinate(movementWithPossiblePacManEffect(mars, coordinate, coordinate.x + 1, 0)
-                        { Coordinate(coordinate.x + 1, coordinate.y) },
+                        movementWithPossiblePacManEffect(isValidMovement(mars, coordinate)
+                                                         { Coordinate(coordinate.x, coordinate.y - 1) },
+                                                         coordinate.y - 1,
+                                                         4))
+        E -> Coordinate(movementWithPossiblePacManEffect(isValidMovement(mars, coordinate)
+                                                         { Coordinate(coordinate.x + 1, coordinate.y) },
+                                                         coordinate.x + 1,
+                                                         0),
                         coordinate.y)
-        W -> Coordinate(movementWithPossiblePacManEffect(mars, coordinate, coordinate.x - 1, 4)
-                        { Coordinate(coordinate.x - 1, coordinate.y) },
+        W -> Coordinate(movementWithPossiblePacManEffect(isValidMovement(mars, coordinate)
+                                                         { Coordinate(coordinate.x - 1, coordinate.y) },
+                                                         coordinate.x - 1,
+                                                         4),
                         coordinate.y)
       }
 
@@ -43,12 +51,10 @@ class Movement {
         W -> forward(mars, coordinate, E)
       }
 
-  private fun movementWithPossiblePacManEffect(mars: Mars?,
-                                               coordinate: Coordinate,
+  private fun movementWithPossiblePacManEffect(isValidMovement: Boolean,
                                                newPoint: Int,
-                                               pacmanPoint: Int,
-                                               movementFunc: (Coordinate) -> Coordinate) =
-      if (isValidMovement(mars, coordinate, movementFunc))
+                                               pacmanPoint: Int) =
+      if (isValidMovement)
         newPoint
       else
         pacmanPoint
