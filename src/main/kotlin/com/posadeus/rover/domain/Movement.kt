@@ -20,21 +20,21 @@ class Movement {
                       orientation: Orientation): Coordinate =
       when (orientation) {
         N -> Coordinate(coordinate.x,
-                        possibleMoveOverTheEdge(isMoveInsideEdges(mars, coordinate)
+                        possibleMoveOverTheEdge(isMovingInsideEdges(mars, coordinate)
                                                 { Coordinate(coordinate.x, coordinate.y + 1) },
                                                 coordinate.y + 1,
                                                 0))
         S -> Coordinate(coordinate.x,
-                        possibleMoveOverTheEdge(isMoveInsideEdges(mars, coordinate)
+                        possibleMoveOverTheEdge(isMovingInsideEdges(mars, coordinate)
                                                 { Coordinate(coordinate.x, coordinate.y - 1) },
                                                 coordinate.y - 1,
                                                 4))
-        E -> Coordinate(possibleMoveOverTheEdge(isMoveInsideEdges(mars, coordinate)
+        E -> Coordinate(possibleMoveOverTheEdge(isMovingInsideEdges(mars, coordinate)
                                                 { Coordinate(coordinate.x + 1, coordinate.y) },
                                                 coordinate.x + 1,
                                                 0),
                         coordinate.y)
-        W -> Coordinate(possibleMoveOverTheEdge(isMoveInsideEdges(mars, coordinate)
+        W -> Coordinate(possibleMoveOverTheEdge(isMovingInsideEdges(mars, coordinate)
                                                 { Coordinate(coordinate.x - 1, coordinate.y) },
                                                 coordinate.x - 1,
                                                 4),
@@ -57,8 +57,8 @@ class Movement {
       if (isMoveInsideEdges) insidePoint
       else pacmanPoint
 
-  private fun isMoveInsideEdges(mars: Mars,
-                                coordinate: Coordinate,
-                                nextCoordinateFunc: (Coordinate) -> Coordinate): Boolean =
+  private fun isMovingInsideEdges(mars: Mars,
+                                  coordinate: Coordinate,
+                                  nextCoordinateFunc: (Coordinate) -> Coordinate): Boolean =
       mars.isValidCoordinate(nextCoordinateFunc(coordinate))
 }
