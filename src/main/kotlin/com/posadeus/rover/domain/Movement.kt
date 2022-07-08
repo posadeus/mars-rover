@@ -54,10 +54,8 @@ class Movement {
   private fun movementWithPossiblePacManEffect(isValidMovement: Boolean,
                                                newPoint: Int,
                                                pacmanPoint: Int) =
-      if (isValidMovement)
-        newPoint
-      else
-        pacmanPoint
+      if (isValidMovement) newPoint
+      else pacmanPoint
 
   private fun isValidMovement(mars: Mars?, coordinate: Coordinate, func: (Coordinate) -> Coordinate): Boolean =
       mars?.isValidCoordinate(func(coordinate)) ?: true
