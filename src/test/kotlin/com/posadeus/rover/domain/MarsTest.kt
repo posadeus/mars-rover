@@ -30,6 +30,6 @@ class MarsTest {
 
     assertTrue { mars.hasObstacle(Coordinate(0, 3)) }
     assertFalse { mars.hasObstacle(Coordinate(1, 2)) }
-    assertFalse { mars.hasObstacle(Coordinate(6, 2)) }
+    assertFalse { mars.hasObstacle(Coordinate(5, 2)) }
   }
 }
