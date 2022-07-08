@@ -1,8 +1,6 @@
 package com.posadeus.rover.domain
 
-class Mars(@Deprecated("use coordinates") private val x: Array<Int>,
-           @Deprecated("use coordinates") private val y: Array<Int>,
-           private val coordinates: Array<Array<Obstacle?>> = emptyArray()) {
+class Mars(private val coordinates: Array<Array<Obstacle?>>) {
 
   fun isValidCoordinate(coordinate: Coordinate): Boolean =
       coordinate.x >= 0
