@@ -179,10 +179,10 @@ class CommandCenterTest {
   // endregion
   companion object {
 
-    private val mars = Mars(arrayOf(arrayOf(null, null, null, Obstacle, null),
-                                    arrayOf(null, Obstacle, null, null, null),
-                                    arrayOf(null, null, null, null, null),
-                                    arrayOf(null, null, null, null, Obstacle),
-                                    arrayOf(null, Obstacle, Obstacle, null, null)))
+    private val mars = Mars(arrayOf(arrayOf(Empty, Empty, Empty, Rock, Empty),
+                                    arrayOf(Empty, Rock, Empty, Empty, Empty),
+                                    arrayOf(Empty, Empty, Empty, Empty, Empty),
+                                    arrayOf(Empty, Empty, Empty, Empty, Rock),
+                                    arrayOf(Empty, Rock, Rock, Empty, Empty)))
   }
 }

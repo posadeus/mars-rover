@@ -9,8 +9,6 @@ class Mars(private val coordinates: Array<Array<Obstacle?>>) {
       && coordinates[coordinate.x].size >= coordinate.y
 
   fun hasObstacle(coordinate: Coordinate): Boolean =
-      when (coordinates[coordinate.x][coordinate.y]) {
-        is Obstacle -> true
-        else -> false
-      }
+      isValidCoordinate(coordinate)
+      && coordinates[coordinate.x][coordinate.y]!!.hasObstacle()
 }
