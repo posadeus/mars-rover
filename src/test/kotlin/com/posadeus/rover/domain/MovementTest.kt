@@ -29,10 +29,12 @@ internal class MovementTest {
   }
 
   @Test
-  internal fun `move forward over the edges on Y`() {
+  internal fun `move forward over the edges`() {
 
     assertTrue { movement.move(mars, Coordinate(0, 4), 'f', N) == Coordinate(0, 0) }
+    assertTrue { movement.move(mars, Coordinate(4, 0), 'f', E) == Coordinate(0, 0) }
     assertTrue { movement.move(mars, Coordinate(0, 0), 'f', S) == Coordinate(0, 4) }
+    assertTrue { movement.move(mars, Coordinate(0, 0), 'f', W) == Coordinate(4, 0) }
   }
 
   @Test

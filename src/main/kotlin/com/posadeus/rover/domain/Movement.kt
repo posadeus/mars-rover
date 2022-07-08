@@ -25,8 +25,12 @@ class Movement {
         S -> Coordinate(coordinate.x,
                         movementWithPossiblePacManEffect(mars, coordinate, coordinate.y - 1, 4)
                         { Coordinate(coordinate.x, coordinate.y - 1) })
-        E -> Coordinate(coordinate.x + 1, coordinate.y)
-        W -> Coordinate(coordinate.x - 1, coordinate.y)
+        E -> Coordinate(movementWithPossiblePacManEffect(mars, coordinate, coordinate.x + 1, 0)
+                        { Coordinate(coordinate.x + 1, coordinate.y) },
+                        coordinate.y)
+        W -> Coordinate(movementWithPossiblePacManEffect(mars, coordinate, coordinate.x - 1, 4)
+                        { Coordinate(coordinate.x - 1, coordinate.y) },
+                        coordinate.y)
       }
 
   private fun backward(coordinate: Coordinate,
