@@ -1,8 +1,6 @@
 package com.posadeus.rover.domain
 
 import arrow.core.getOrElse
-import com.posadeus.rover.domain.Error.COMMAND_NOT_FOUND
-import com.posadeus.rover.domain.Error.WRONG_COORDINATE
 import com.posadeus.rover.domain.Orientation.*
 import io.mockk.every
 import io.mockk.mockk
@@ -35,7 +33,7 @@ class CommandCenterTest {
     val position = commandCenter.position()
 
     assertTrue { position.isLeft() }
-    assertTrue { position.fold({ it }, { it }) == WRONG_COORDINATE }
+    assertTrue { position.fold({ it }, { it }) == WrongCoordinate }
   }
 // endregion
 
@@ -163,7 +161,7 @@ class CommandCenterTest {
     val execute = commandCenter.execute(arrayOf('k'))
 
     assertTrue { execute.isLeft() }
-    assertTrue { execute.fold({ it }, { it }) == COMMAND_NOT_FOUND }
+    assertTrue { execute.fold({ it }, { it }) == CommandNotFound }
   }
   // endregion
 

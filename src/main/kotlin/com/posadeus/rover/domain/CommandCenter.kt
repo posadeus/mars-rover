@@ -1,8 +1,6 @@
 package com.posadeus.rover.domain
 
 import arrow.core.Either
-import com.posadeus.rover.domain.Error.COMMAND_NOT_FOUND
-import com.posadeus.rover.domain.Error.WRONG_COORDINATE
 import com.posadeus.rover.domain.exception.MissionAbortedException
 import java.util.logging.Logger
 
@@ -15,7 +13,7 @@ data class CommandCenter(private val mars: Mars,
       if (mars.isValidCoordinate(rover.coordinate))
         Either.Right(rover.coordinate)
       else
-        Either.Left(WRONG_COORDINATE)
+        Either.Left(WrongCoordinate)
 
   fun orientation(): Orientation =
       rover.orientation
@@ -38,7 +36,7 @@ data class CommandCenter(private val mars: Mars,
               }
 
             'r', 'l' -> go(commands, turn(turn.turn(command, rover.orientation), rover))
-            else -> Either.Left(COMMAND_NOT_FOUND)
+            else -> Either.Left(CommandNotFound)
           }
         }
         else

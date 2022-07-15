@@ -1,7 +1,6 @@
 package com.posadeus.rover.domain
 
-enum class Error {
+sealed class Error
 
-  COMMAND_NOT_FOUND,
-  WRONG_COORDINATE
-}
+object CommandNotFound : Error()
+object WrongCoordinate : Error()
