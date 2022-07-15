@@ -1,7 +1,6 @@
 package com.posadeus.rover.domain
 
 import arrow.core.Either
-import com.posadeus.rover.domain.exception.MissionAbortedException
 import java.util.logging.Logger
 
 data class CommandCenter(private val mars: Mars,
@@ -24,17 +23,8 @@ data class CommandCenter(private val mars: Mars,
         if (commands.hasNext()) {
 
           when (val command = commands.next()) {
-            'f', 'b' ->
-              try {
-                go(commands, move(abortIfObstacledOrUpdateCoordinates(rover, command), rover))
-              }
-              catch (e: MissionAbortedException) {
-
-                logger.warning(e.message)
-
-                Either.Right(rover)
-              }
-
+            'f', 'b' -> abortIfObstacledOrUpdateCoordinates(rover, command).fold({ Either.Right(rover) },
+                                                                                 { go(commands, move(it, rover)) })
             'r', 'l' -> go(commands, turn(turn.turn(command, rover.orientation), rover))
             else -> Either.Left(CommandNotFound)
           }
@@ -51,15 +41,21 @@ data class CommandCenter(private val mars: Mars,
   private fun turn(orientation: Orientation, rover: Rover): Rover =
       Rover(rover.coordinate, orientation)
 
-  private fun abortIfObstacledOrUpdateCoordinates(rover: Rover, command: Char): Coordinate {
+  private fun abortIfObstacledOrUpdateCoordinates(rover: Rover, command: Char): Either<Error, Coordinate> {
 
     val newCoordinate = movement.move(mars,
                                       rover.coordinate,
                                       command,
                                       rover.orientation)
 
-    return if (mars.hasObstacle(newCoordinate)) throw MissionAbortedException("Obstacle found: $newCoordinate")
-    else newCoordinate
+    return if (mars.hasObstacle(newCoordinate)) {
+
+      logger.warning("Obstacle found: $newCoordinate")
+
+      Either.Left(MissionAborted)
+    }
+    else
+      Either.Right(newCoordinate)
   }
 
   companion object {
