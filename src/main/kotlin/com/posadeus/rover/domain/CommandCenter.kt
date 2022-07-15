@@ -20,11 +20,18 @@ data class CommandCenter(private val mars: Mars,
 
   fun execute(commands: Array<Char>): Rover {
 
-    tailrec fun go(commands: Iterator<Char>, rover: Rover): Rover =
+    fun go(commands: Iterator<Char>, rover: Rover): Rover =
         if (commands.hasNext()) {
 
           when (val command = commands.next()) {
-            'f', 'b' -> go(commands, move(abortIfObstacledOrUpdateCoordinates(rover, command), rover))
+            'f', 'b' ->
+              try {
+                go(commands, move(abortIfObstacledOrUpdateCoordinates(rover, command), rover))
+              }
+              catch (e: MissionAbortedException) {
+                rover
+              }
+
             'r', 'l' -> go(commands, turn(turn.turn(command, rover.orientation), rover))
             else -> throw CommandNotFoundException()
           }

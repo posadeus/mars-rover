@@ -2,7 +2,6 @@ package com.posadeus.rover.domain
 
 import com.posadeus.rover.domain.Orientation.*
 import com.posadeus.rover.domain.exception.CommandNotFoundException
-import com.posadeus.rover.domain.exception.MissionAbortedException
 import com.posadeus.rover.domain.exception.WrongCoordinateException
 import io.mockk.every
 import io.mockk.mockk
@@ -148,14 +147,15 @@ class CommandCenterTest {
   @Test
   internal fun `detect obstacle and abort movements`() {
 
-    val startCoordinate = Coordinate(0, 2)
+    val startCoordinate = Coordinate(0, 1)
     val rover = Rover(startCoordinate, N)
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(0, 3)
+    every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(0, 2)
+    every { movement.move(mars, Coordinate(0, 2), 'f', N) } returns Coordinate(0, 3)
 
-    assertThrows<MissionAbortedException> { commandCenter.execute(arrayOf('f')) }
+    assertTrue { commandCenter.execute(arrayOf('f', 'f')) == Rover(Coordinate(0, 2), N) }
   }
   // endregion
 
