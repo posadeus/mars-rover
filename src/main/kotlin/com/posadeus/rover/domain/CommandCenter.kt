@@ -25,7 +25,8 @@ data class CommandCenter(private val mars: Mars,
           when (val command = commands.next()) {
             'f', 'b' -> abortIfObstacledOrUpdateCoordinates(rover, command).fold({ Either.Right(rover) },
                                                                                  { go(commands, move(it, rover)) })
-            'r', 'l' -> go(commands, turn(turn.turn(command, rover.orientation), rover))
+            'r', 'l' -> turn.turn(command, rover.orientation).fold({ Either.Right(rover) },
+                                                                   { go(commands, turn(it, rover)) })
             else -> Either.Left(CommandNotFound)
           }
         }

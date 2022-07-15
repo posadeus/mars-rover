@@ -1,16 +1,16 @@
 package com.posadeus.rover.domain
 
+import arrow.core.Either
 import com.posadeus.rover.domain.Orientation.*
-import com.posadeus.rover.domain.exception.CommandNotFoundException
 
 class Turn {
 
   fun turn(command: Char,
-           orientation: Orientation): Orientation =
+           orientation: Orientation): Either<Error, Orientation> =
       when (command) {
-        'r' -> turnRight(orientation)
-        'l' -> turnLeft(orientation)
-        else -> throw CommandNotFoundException()
+        'r' -> Either.Right(turnRight(orientation))
+        'l' -> Either.Right(turnLeft(orientation))
+        else -> Either.Left(CommandNotFound)
       }
 
   private fun turnRight(orientation: Orientation): Orientation =
