@@ -21,16 +21,16 @@ class Movement {
       when (orientation) {
         N -> move(mars = mars,
                   nextInsideCoordinate = Coordinate(coordinate.x, coordinate.y + 1),
-                  pacmanPoint = Coordinate(coordinate.x, 0))
+                  pacmanCoordinate = Coordinate(coordinate.x, 0))
         S -> move(mars = mars,
                   nextInsideCoordinate = Coordinate(coordinate.x, coordinate.y - 1),
-                  pacmanPoint = Coordinate(coordinate.x, mars.coordinates[coordinate.x].size - 1))
+                  pacmanCoordinate = Coordinate(coordinate.x, mars.coordinates[coordinate.x].size - 1))
         E -> move(mars = mars,
                   nextInsideCoordinate = Coordinate(coordinate.x + 1, coordinate.y),
-                  pacmanPoint = Coordinate(0, coordinate.y))
+                  pacmanCoordinate = Coordinate(0, coordinate.y))
         W -> move(mars = mars,
                   nextInsideCoordinate = Coordinate(coordinate.x - 1, coordinate.y),
-                  pacmanPoint = Coordinate(mars.coordinates[coordinate.x].size - 1, coordinate.y))
+                  pacmanCoordinate = Coordinate(mars.coordinates[coordinate.x].size - 1, coordinate.y))
       }
 
   private fun backward(mars: Mars,
@@ -45,9 +45,9 @@ class Movement {
 
   private fun move(mars: Mars,
                    nextInsideCoordinate: Coordinate,
-                   pacmanPoint: Coordinate): Coordinate =
+                   pacmanCoordinate: Coordinate): Coordinate =
       if (isMovingInsideEdges(mars, nextInsideCoordinate)) nextInsideCoordinate
-      else pacmanPoint
+      else pacmanCoordinate
 
   private fun isMovingInsideEdges(mars: Mars,
                                   nextInsideCoordinate: Coordinate): Boolean =
