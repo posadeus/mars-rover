@@ -3,6 +3,7 @@ package com.posadeus.rover.domain
 import com.posadeus.rover.domain.exception.CommandNotFoundException
 import com.posadeus.rover.domain.exception.MissionAbortedException
 import com.posadeus.rover.domain.exception.WrongCoordinateException
+import java.util.logging.Logger
 
 data class CommandCenter(private val mars: Mars,
                          private val rover: Rover,
@@ -29,6 +30,9 @@ data class CommandCenter(private val mars: Mars,
                 go(commands, move(abortIfObstacledOrUpdateCoordinates(rover, command), rover))
               }
               catch (e: MissionAbortedException) {
+
+                logger.warning(e.message)
+
                 rover
               }
 
@@ -55,7 +59,12 @@ data class CommandCenter(private val mars: Mars,
                                       command,
                                       rover.orientation)
 
-    return if (mars.hasObstacle(newCoordinate)) throw MissionAbortedException()
+    return if (mars.hasObstacle(newCoordinate)) throw MissionAbortedException("Obstacle found: $newCoordinate")
     else newCoordinate
+  }
+
+  companion object {
+
+    private val logger = Logger.getLogger("CommandCenter")
   }
 }

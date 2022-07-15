@@ -1,3 +1,3 @@
 package com.posadeus.rover.domain.exception
 
-class MissionAbortedException : RuntimeException()
+class MissionAbortedException(override val message: String) : RuntimeException(message)

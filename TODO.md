@@ -24,8 +24,8 @@ Rover
 
 - [X] Detect obstacles
 - [X] Abort mission if obstacle detected in proximity of the next movement
-- [ ] Report obstacle
-- [ ] Execute complex sequence of commands
+- [X] Report obstacle
+- [X] Execute complex sequence of commands
 
 Edge Cases
 

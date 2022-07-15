@@ -128,6 +128,17 @@ class CommandCenterTest {
 
     assertTrue { commandCenter.execute(arrayOf('f', 'l', 'f', 'r', 'f', 'r')) == Rover(Coordinate(1, 4), E) }
   }
+
+  @Test
+  internal fun `execute forward and turns commands with obstacle on the way`() {
+
+    val rover = Rover(Coordinate(2, 2), N)
+    val moves = Movement()
+    val turns = Turn()
+    val commandCenter = CommandCenter(mars, rover, moves, turns)
+
+    assertTrue { commandCenter.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(Coordinate(3, 3), N) }
+  }
   // endregion
 
   // region execute exceptions
