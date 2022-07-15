@@ -5,10 +5,10 @@ import com.posadeus.rover.domain.Orientation.*
 
 class Movement {
 
-  fun move(mars: Mars,
-           coordinate: Coordinate,
-           command: Char,
-           orientation: Orientation): Either<Error, Coordinate> =
+  fun calculate(mars: Mars,
+                coordinate: Coordinate,
+                command: Char,
+                orientation: Orientation): Either<Error, Coordinate> =
       when (command) {
         'f' -> Either.Right(forward(mars, coordinate, orientation))
         'b' -> Either.Right(backward(mars, coordinate, orientation))
@@ -19,18 +19,18 @@ class Movement {
                       coordinate: Coordinate,
                       orientation: Orientation): Coordinate =
       when (orientation) {
-        N -> move(mars = mars,
-                  nextInsideCoordinate = Coordinate(coordinate.x, coordinate.y + 1),
-                  pacmanCoordinate = Coordinate(coordinate.x, 0))
-        S -> move(mars = mars,
-                  nextInsideCoordinate = Coordinate(coordinate.x, coordinate.y - 1),
-                  pacmanCoordinate = Coordinate(coordinate.x, mars.coordinates[coordinate.x].size - 1))
-        E -> move(mars = mars,
-                  nextInsideCoordinate = Coordinate(coordinate.x + 1, coordinate.y),
-                  pacmanCoordinate = Coordinate(0, coordinate.y))
-        W -> move(mars = mars,
-                  nextInsideCoordinate = Coordinate(coordinate.x - 1, coordinate.y),
-                  pacmanCoordinate = Coordinate(mars.coordinates[coordinate.x].size - 1, coordinate.y))
+        N -> nextCoordinate(mars = mars,
+                            nextInsideCoordinate = Coordinate(coordinate.x, coordinate.y + 1),
+                            pacmanCoordinate = Coordinate(coordinate.x, 0))
+        S -> nextCoordinate(mars = mars,
+                            nextInsideCoordinate = Coordinate(coordinate.x, coordinate.y - 1),
+                            pacmanCoordinate = Coordinate(coordinate.x, mars.coordinates[coordinate.x].size - 1))
+        E -> nextCoordinate(mars = mars,
+                            nextInsideCoordinate = Coordinate(coordinate.x + 1, coordinate.y),
+                            pacmanCoordinate = Coordinate(0, coordinate.y))
+        W -> nextCoordinate(mars = mars,
+                            nextInsideCoordinate = Coordinate(coordinate.x - 1, coordinate.y),
+                            pacmanCoordinate = Coordinate(mars.coordinates[coordinate.x].size - 1, coordinate.y))
       }
 
   private fun backward(mars: Mars,
@@ -43,9 +43,9 @@ class Movement {
         W -> forward(mars, coordinate, E)
       }
 
-  private fun move(mars: Mars,
-                   nextInsideCoordinate: Coordinate,
-                   pacmanCoordinate: Coordinate): Coordinate =
+  private fun nextCoordinate(mars: Mars,
+                             nextInsideCoordinate: Coordinate,
+                             pacmanCoordinate: Coordinate): Coordinate =
       if (isMovingInsideEdges(mars, nextInsideCoordinate)) nextInsideCoordinate
       else pacmanCoordinate
 
