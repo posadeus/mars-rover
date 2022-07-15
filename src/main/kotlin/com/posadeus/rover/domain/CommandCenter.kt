@@ -1,7 +1,6 @@
 package com.posadeus.rover.domain
 
 import arrow.core.Either
-import java.util.logging.Logger
 
 data class CommandCenter(private val mars: Mars,
                          private val rover: Rover,
@@ -50,18 +49,9 @@ data class CommandCenter(private val mars: Mars,
 
   private fun abortIfObstacledOrUpdateCoordinates(newCoordinate: Either<Error, Coordinate>): Either<Error, Coordinate> {
 
-    return if (newCoordinate.exists { mars.hasObstacle(it) }) {
-
-      logger.warning("Obstacle found: $newCoordinate")
-
-      Either.Left(MissionAborted)
-    }
+    return if (newCoordinate.exists { mars.hasObstacle(it) })
+      Either.Left(MissionAborted("Obstacle found: $newCoordinate"))
     else
       newCoordinate
-  }
-
-  companion object {
-
-    private val logger = Logger.getLogger("CommandCenter")
   }
 }
