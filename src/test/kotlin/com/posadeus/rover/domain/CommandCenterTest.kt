@@ -2,12 +2,11 @@ package com.posadeus.rover.domain
 
 import arrow.core.getOrElse
 import com.posadeus.rover.domain.Error.COMMAND_NOT_FOUND
+import com.posadeus.rover.domain.Error.WRONG_COORDINATE
 import com.posadeus.rover.domain.Orientation.*
-import com.posadeus.rover.domain.exception.WrongCoordinateException
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertTrue
 
 class CommandCenterTest {
@@ -23,7 +22,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    assertTrue { commandCenter.position() == Coordinate(2, 2) }
+    assertTrue { commandCenter.position().getOrElse { null } == Coordinate(2, 2) }
     assertTrue { commandCenter.orientation() == N }
   }
 
@@ -31,10 +30,12 @@ class CommandCenterTest {
   internal fun `rover wrong initial position`() {
 
     val rover = Rover(Coordinate(6, 0), N)
-
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    assertThrows<WrongCoordinateException> { commandCenter.position() }
+    val position = commandCenter.position()
+
+    assertTrue { position.isLeft() }
+    assertTrue { position.fold({ it }, { it }) == WRONG_COORDINATE }
   }
 // endregion
 
@@ -159,8 +160,10 @@ class CommandCenterTest {
     val turn = Turn()
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    assertTrue { commandCenter.execute(arrayOf('k')).isLeft() }
-    assertTrue { commandCenter.execute(arrayOf('k')).fold({ it }, { it }) == COMMAND_NOT_FOUND }
+    val execute = commandCenter.execute(arrayOf('k'))
+
+    assertTrue { execute.isLeft() }
+    assertTrue { execute.fold({ it }, { it }) == COMMAND_NOT_FOUND }
   }
   // endregion
 
