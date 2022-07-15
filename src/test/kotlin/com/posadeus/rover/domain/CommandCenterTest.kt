@@ -27,13 +27,14 @@ class CommandCenterTest {
   @Test
   internal fun `rover wrong initial position`() {
 
-    val rover = Rover(Coordinate(6, 0), N)
+    val coordinate = Coordinate(6, 0)
+    val rover = Rover(coordinate, N)
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
     val position = commandCenter.position()
 
     assertTrue { position.isLeft() }
-    assertTrue { position.fold({ it }, { it }) == WrongCoordinate }
+    assertTrue { position.fold({ it }, { it }) == WrongCoordinate("Coordinate not allowed: $coordinate") }
   }
 // endregion
 

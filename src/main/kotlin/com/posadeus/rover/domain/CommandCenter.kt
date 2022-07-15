@@ -12,7 +12,7 @@ data class CommandCenter(private val mars: Mars,
       if (mars.isValidCoordinate(rover.coordinate))
         Either.Right(rover.coordinate)
       else
-        Either.Left(WrongCoordinate)
+        Either.Left(WrongCoordinate("Coordinate not allowed: ${rover.coordinate}"))
 
   fun orientation(): Orientation =
       rover.orientation
