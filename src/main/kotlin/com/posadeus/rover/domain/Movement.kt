@@ -1,18 +1,18 @@
 package com.posadeus.rover.domain
 
+import arrow.core.Either
 import com.posadeus.rover.domain.Orientation.*
-import com.posadeus.rover.domain.exception.CommandNotFoundException
 
 class Movement {
 
   fun move(mars: Mars,
            coordinate: Coordinate,
            command: Char,
-           orientation: Orientation): Coordinate =
+           orientation: Orientation): Either<Error, Coordinate> =
       when (command) {
-        'f' -> forward(mars, coordinate, orientation)
-        'b' -> backward(mars, coordinate, orientation)
-        else -> throw CommandNotFoundException()
+        'f' -> Either.Right(forward(mars, coordinate, orientation))
+        'b' -> Either.Right(backward(mars, coordinate, orientation))
+        else -> Either.Left(CommandNotFound)
       }
 
   private fun forward(mars: Mars,

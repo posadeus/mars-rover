@@ -1,5 +1,6 @@
 package com.posadeus.rover.domain
 
+import arrow.core.Either
 import arrow.core.getOrElse
 import com.posadeus.rover.domain.Orientation.*
 import io.mockk.every
@@ -47,7 +48,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(2, 3)
+    every { movement.move(mars, startCoordinate, 'f', N) } returns Either.Right(Coordinate(2, 3))
 
     assertTrue { commandCenter.execute(arrayOf('f')).getOrElse { null } == Rover(Coordinate(2, 3), N) }
   }
@@ -60,7 +61,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { movement.move(mars, startCoordinate, 'b', N) } returns Coordinate(2, 1)
+    every { movement.move(mars, startCoordinate, 'b', N) } returns Either.Right(Coordinate(2, 1))
 
     assertTrue { commandCenter.execute(arrayOf('b')).getOrElse { null } == Rover(Coordinate(2, 1), N) }
   }
@@ -73,7 +74,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(4, 0)
+    every { movement.move(mars, startCoordinate, 'f', N) } returns Either.Right(Coordinate(4, 0))
 
     assertTrue { commandCenter.execute(arrayOf('f')).getOrElse { null } == Rover(Coordinate(4, 0), N) }
   }
@@ -175,8 +176,8 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(0, 2)
-    every { movement.move(mars, Coordinate(0, 2), 'f', N) } returns Coordinate(0, 3)
+    every { movement.move(mars, startCoordinate, 'f', N) } returns Either.Right(Coordinate(0, 2))
+    every { movement.move(mars, Coordinate(0, 2), 'f', N) } returns Either.Right(Coordinate(0, 3))
 
     assertTrue { commandCenter.execute(arrayOf('f', 'f')).getOrElse { null } == Rover(Coordinate(0, 2), N) }
   }
