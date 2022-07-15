@@ -27,10 +27,10 @@ data class CommandCenter(private val mars: Mars,
                                                                 rover.coordinate,
                                                                 command,
                                                                 rover.orientation))
-                  .fold({ Either.Right(rover) }, // FIXME the error from movement is never reported
+                  .fold({ Either.Right(rover) },
                         { go(commands, move(it, rover)) })
             'r', 'l' -> turn.turn(command,
-                                  rover.orientation).fold({ Either.Right(rover) }, // FIXME the error from turn is never reported
+                                  rover.orientation).fold({ Either.Right(rover) },
                                                           { go(commands, turn(it, rover)) })
             else -> Either.Left(CommandNotFound)
           }
