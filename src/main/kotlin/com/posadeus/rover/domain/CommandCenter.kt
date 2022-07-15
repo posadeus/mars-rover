@@ -49,8 +49,6 @@ data class CommandCenter(private val mars: Mars,
                                       command,
                                       rover.orientation)
 
-    if (newCoordinate.isLeft()) return newCoordinate.mapLeft { it }
-
     return if (newCoordinate.exists { mars.hasObstacle(it) }) {
 
       logger.warning("Obstacle found: $newCoordinate")
