@@ -31,3 +31,7 @@ Edge Cases
 
 - [X] Wrong coordinates for Rover initial position
 - [X] Command not found
+
+Third part
+
+- [ ] API to set initial position
