@@ -19,22 +19,18 @@ class Movement {
                       coordinate: Coordinate,
                       orientation: Orientation): Coordinate =
       when (orientation) {
-        N -> Coordinate(coordinate.x,
-                        move(isMovingInsideEdges(mars, coordinate) { Coordinate(coordinate.x, coordinate.y + 1) },
-                             coordinate.y + 1,
-                             0))
-        S -> Coordinate(coordinate.x,
-                        move(isMovingInsideEdges(mars, coordinate) { Coordinate(coordinate.x, coordinate.y - 1) },
-                             coordinate.y - 1,
-                             mars.coordinates[coordinate.x].size - 1))
-        E -> Coordinate(move(isMovingInsideEdges(mars, coordinate) { Coordinate(coordinate.x + 1, coordinate.y) },
-                             coordinate.x + 1,
-                             0),
-                        coordinate.y)
-        W -> Coordinate(move(isMovingInsideEdges(mars, coordinate) { Coordinate(coordinate.x - 1, coordinate.y) },
-                             coordinate.x - 1,
-                             mars.coordinates[coordinate.x].size - 1),
-                        coordinate.y)
+        N -> move(mars = mars,
+                  nextInsideCoordinate = Coordinate(coordinate.x, coordinate.y + 1),
+                  pacmanPoint = Coordinate(coordinate.x, 0))
+        S -> move(mars = mars,
+                  nextInsideCoordinate = Coordinate(coordinate.x, coordinate.y - 1),
+                  pacmanPoint = Coordinate(coordinate.x, mars.coordinates[coordinate.x].size - 1))
+        E -> move(mars = mars,
+                  nextInsideCoordinate = Coordinate(coordinate.x + 1, coordinate.y),
+                  pacmanPoint = Coordinate(0, coordinate.y))
+        W -> move(mars = mars,
+                  nextInsideCoordinate = Coordinate(coordinate.x - 1, coordinate.y),
+                  pacmanPoint = Coordinate(mars.coordinates[coordinate.x].size - 1, coordinate.y))
       }
 
   private fun backward(mars: Mars,
@@ -47,14 +43,13 @@ class Movement {
         W -> forward(mars, coordinate, E)
       }
 
-  private fun move(isMoveInsideEdges: Boolean,
-                   insidePoint: Int,
-                   pacmanPoint: Int) =
-      if (isMoveInsideEdges) insidePoint
+  private fun move(mars: Mars,
+                   nextInsideCoordinate: Coordinate,
+                   pacmanPoint: Coordinate): Coordinate =
+      if (isMovingInsideEdges(mars, nextInsideCoordinate)) nextInsideCoordinate
       else pacmanPoint
 
   private fun isMovingInsideEdges(mars: Mars,
-                                  coordinate: Coordinate,
-                                  nextCoordinateFunc: (Coordinate) -> Coordinate): Boolean =
-      mars.isValidCoordinate(nextCoordinateFunc(coordinate))
+                                  nextInsideCoordinate: Coordinate): Boolean =
+      mars.isValidCoordinate(nextInsideCoordinate)
 }
