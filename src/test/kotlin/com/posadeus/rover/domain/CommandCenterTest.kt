@@ -1,7 +1,8 @@
 package com.posadeus.rover.domain
 
+import arrow.core.getOrElse
+import com.posadeus.rover.domain.Error.COMMAND_NOT_FOUND
 import com.posadeus.rover.domain.Orientation.*
-import com.posadeus.rover.domain.exception.CommandNotFoundException
 import com.posadeus.rover.domain.exception.WrongCoordinateException
 import io.mockk.every
 import io.mockk.mockk
@@ -48,7 +49,7 @@ class CommandCenterTest {
 
     every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(2, 3)
 
-    assertTrue { commandCenter.execute(arrayOf('f')) == Rover(Coordinate(2, 3), N) }
+    assertTrue { commandCenter.execute(arrayOf('f')).getOrElse { null } == Rover(Coordinate(2, 3), N) }
   }
 
   @Test
@@ -61,7 +62,7 @@ class CommandCenterTest {
 
     every { movement.move(mars, startCoordinate, 'b', N) } returns Coordinate(2, 1)
 
-    assertTrue { commandCenter.execute(arrayOf('b')) == Rover(Coordinate(2, 1), N) }
+    assertTrue { commandCenter.execute(arrayOf('b')).getOrElse { null } == Rover(Coordinate(2, 1), N) }
   }
 
   @Test
@@ -74,7 +75,7 @@ class CommandCenterTest {
 
     every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(4, 0)
 
-    assertTrue { commandCenter.execute(arrayOf('f')) == Rover(Coordinate(4, 0), N) }
+    assertTrue { commandCenter.execute(arrayOf('f')).getOrElse { null } == Rover(Coordinate(4, 0), N) }
   }
 // endregion
 
@@ -89,7 +90,7 @@ class CommandCenterTest {
 
     every { turn.turn('r', N) } returns E
 
-    assertTrue { commandCenter.execute(arrayOf('r')) == Rover(startCoordinate, E) }
+    assertTrue { commandCenter.execute(arrayOf('r')).getOrElse { null } == Rover(startCoordinate, E) }
   }
 
   @Test
@@ -102,7 +103,7 @@ class CommandCenterTest {
 
     every { turn.turn('l', N) } returns W
 
-    assertTrue { commandCenter.execute(arrayOf('l')) == Rover(startCoordinate, W) }
+    assertTrue { commandCenter.execute(arrayOf('l')).getOrElse { null } == Rover(startCoordinate, W) }
   }
   // endregion
 
@@ -115,7 +116,7 @@ class CommandCenterTest {
     val turn = Turn()
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    assertTrue { commandCenter.execute(arrayOf('f', 'f', 'b')) == Rover(Coordinate(2, 3), N) }
+    assertTrue { commandCenter.execute(arrayOf('f', 'f', 'b')).getOrElse { null } == Rover(Coordinate(2, 3), N) }
   }
 
   @Test
@@ -126,7 +127,11 @@ class CommandCenterTest {
     val turns = Turn()
     val commandCenter = CommandCenter(mars, rover, moves, turns)
 
-    assertTrue { commandCenter.execute(arrayOf('f', 'l', 'f', 'r', 'f', 'r')) == Rover(Coordinate(1, 4), E) }
+    assertTrue {
+      commandCenter.execute(arrayOf('f', 'l', 'f', 'r', 'f', 'r')).getOrElse { null } == Rover(Coordinate(1,
+                                                                                                          4),
+                                                                                               E)
+    }
   }
 
   @Test
@@ -137,7 +142,11 @@ class CommandCenterTest {
     val turns = Turn()
     val commandCenter = CommandCenter(mars, rover, moves, turns)
 
-    assertTrue { commandCenter.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')) == Rover(Coordinate(3, 3), N) }
+    assertTrue {
+      commandCenter.execute(arrayOf('f', 'r', 'f', 'l', 'f', 'r')).getOrElse { null } == Rover(Coordinate(3,
+                                                                                                          3),
+                                                                                               N)
+    }
   }
   // endregion
 
@@ -150,7 +159,8 @@ class CommandCenterTest {
     val turn = Turn()
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    assertThrows<CommandNotFoundException> { commandCenter.execute(arrayOf('k')) }
+    assertTrue { commandCenter.execute(arrayOf('k')).isLeft() }
+    assertTrue { commandCenter.execute(arrayOf('k')).fold({ it }, { it }) == COMMAND_NOT_FOUND }
   }
   // endregion
 
@@ -166,7 +176,7 @@ class CommandCenterTest {
     every { movement.move(mars, startCoordinate, 'f', N) } returns Coordinate(0, 2)
     every { movement.move(mars, Coordinate(0, 2), 'f', N) } returns Coordinate(0, 3)
 
-    assertTrue { commandCenter.execute(arrayOf('f', 'f')) == Rover(Coordinate(0, 2), N) }
+    assertTrue { commandCenter.execute(arrayOf('f', 'f')).getOrElse { null } == Rover(Coordinate(0, 2), N) }
   }
   // endregion
 

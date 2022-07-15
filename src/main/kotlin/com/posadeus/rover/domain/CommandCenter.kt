@@ -1,6 +1,7 @@
 package com.posadeus.rover.domain
 
-import com.posadeus.rover.domain.exception.CommandNotFoundException
+import arrow.core.Either
+import com.posadeus.rover.domain.Error.COMMAND_NOT_FOUND
 import com.posadeus.rover.domain.exception.MissionAbortedException
 import com.posadeus.rover.domain.exception.WrongCoordinateException
 import java.util.logging.Logger
@@ -19,9 +20,9 @@ data class CommandCenter(private val mars: Mars,
   fun orientation(): Orientation =
       rover.orientation
 
-  fun execute(commands: Array<Char>): Rover {
+  fun execute(commands: Array<Char>): Either<Error, Rover> {
 
-    fun go(commands: Iterator<Char>, rover: Rover): Rover =
+    fun go(commands: Iterator<Char>, rover: Rover): Either<Error, Rover> =
         if (commands.hasNext()) {
 
           when (val command = commands.next()) {
@@ -33,15 +34,15 @@ data class CommandCenter(private val mars: Mars,
 
                 logger.warning(e.message)
 
-                rover
+                Either.Right(rover)
               }
 
             'r', 'l' -> go(commands, turn(turn.turn(command, rover.orientation), rover))
-            else -> throw CommandNotFoundException()
+            else -> Either.Left(COMMAND_NOT_FOUND)
           }
         }
         else
-          rover
+          Either.Right(rover)
 
     return go(commands.iterator(), rover)
   }
