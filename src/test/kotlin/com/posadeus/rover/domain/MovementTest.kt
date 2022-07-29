@@ -54,6 +54,15 @@ internal class MovementTest {
     assertTrue { move.fold({ it }, { it }) == CommandNotFound }
   }
 
+  @Test
+  internal fun `impossible movement for obstacle detected`() {
+
+    val move = movement.calculate(mars, Coordinate(0, 1), 'f', E)
+
+    assertTrue { move.isLeft() }
+    assertTrue { move.fold({ it }, { it }) == MissionAborted("Obstacle found: ${Coordinate(1, 1)}") }
+  }
+
   companion object {
 
     private val mars = Mars(arrayOf(arrayOf(Empty, Empty, Empty, Rock, Empty),

@@ -10,8 +10,8 @@ class Movement {
                 command: Char,
                 orientation: Orientation): Either<Error, Coordinate> =
       when (command) {
-        'f' -> Either.Right(forward(mars, coordinate, orientation))
-        'b' -> Either.Right(backward(mars, coordinate, orientation))
+        'f' -> abortIfObstacledOrUpdateCoordinate(forward(mars, coordinate, orientation), mars)
+        'b' -> abortIfObstacledOrUpdateCoordinate(backward(mars, coordinate, orientation), mars)
         else -> Either.Left(CommandNotFound)
       }
 
@@ -52,4 +52,11 @@ class Movement {
   private fun isMovingInsideEdges(mars: Mars,
                                   nextInsideCoordinate: Coordinate): Boolean =
       mars.isValidCoordinate(nextInsideCoordinate)
+
+  private fun abortIfObstacledOrUpdateCoordinate(newCoordinate: Coordinate,
+                                                 mars: Mars): Either<Error, Coordinate> =
+      if (mars.hasObstacle(newCoordinate))
+        Either.Left(MissionAborted("Obstacle found: $newCoordinate"))
+      else
+        Either.Right(newCoordinate)
 }
