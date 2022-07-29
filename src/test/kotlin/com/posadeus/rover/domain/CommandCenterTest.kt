@@ -85,7 +85,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { turn.turn('r', N) } returns Either.Right(E)
+    every { turn.calculate('r', N) } returns Either.Right(E)
 
     assertTrue { commandCenter.execute(arrayOf('r')) == Either.Right(Rover(startCoordinate, E)) }
   }
@@ -98,7 +98,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    every { turn.turn('l', N) } returns Either.Right(W)
+    every { turn.calculate('l', N) } returns Either.Right(W)
 
     assertTrue { commandCenter.execute(arrayOf('l')) == Either.Right(Rover(startCoordinate, W)) }
   }

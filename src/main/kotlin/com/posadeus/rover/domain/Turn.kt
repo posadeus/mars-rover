@@ -5,8 +5,8 @@ import com.posadeus.rover.domain.Orientation.*
 
 class Turn {
 
-  fun turn(command: Char,
-           orientation: Orientation): Either<Error, Orientation> =
+  fun calculate(command: Char,
+                orientation: Orientation): Either<Error, Orientation> =
       when (command) {
         'r' -> Either.Right(turnRight(orientation))
         'l' -> Either.Right(turnLeft(orientation))
