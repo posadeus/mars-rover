@@ -1,9 +1,10 @@
 package com.posadeus.rover.domain
 
-import arrow.core.getOrElse
+import arrow.core.Either
 import com.posadeus.rover.domain.Orientation.*
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import com.posadeus.rover.domain.Coordinate as Coordinate1
 
 internal class MovementTest {
 
@@ -12,55 +13,51 @@ internal class MovementTest {
   @Test
   internal fun `move forward`() {
 
-    assertTrue { movement.calculate(mars, Coordinate(2, 2), 'f', N).getOrElse { null } == Coordinate(2, 3) }
-    assertTrue { movement.calculate(mars, Coordinate(2, 2), 'f', E).getOrElse { null } == Coordinate(3, 2) }
-    assertTrue { movement.calculate(mars, Coordinate(2, 2), 'f', S).getOrElse { null } == Coordinate(2, 1) }
-    assertTrue { movement.calculate(mars, Coordinate(2, 2), 'f', W).getOrElse { null } == Coordinate(1, 2) }
+    assertTrue { movement.calculate(mars, Coordinate1(2, 2), 'f', N) == Either.Right(Coordinate1(2, 3)) }
+    assertTrue { movement.calculate(mars, Coordinate1(2, 2), 'f', E) == Either.Right(Coordinate1(3, 2)) }
+    assertTrue { movement.calculate(mars, Coordinate1(2, 2), 'f', S) == Either.Right(Coordinate1(2, 1)) }
+    assertTrue { movement.calculate(mars, Coordinate1(2, 2), 'f', W) == Either.Right(Coordinate1(1, 2)) }
   }
 
   @Test
   internal fun `move backward`() {
 
-    assertTrue { movement.calculate(mars, Coordinate(2, 2), 'b', N).getOrElse { null } == Coordinate(2, 1) }
-    assertTrue { movement.calculate(mars, Coordinate(2, 2), 'b', E).getOrElse { null } == Coordinate(1, 2) }
-    assertTrue { movement.calculate(mars, Coordinate(2, 2), 'b', S).getOrElse { null } == Coordinate(2, 3) }
-    assertTrue { movement.calculate(mars, Coordinate(2, 2), 'b', W).getOrElse { null } == Coordinate(3, 2) }
+    assertTrue { movement.calculate(mars, Coordinate1(2, 2), 'b', N) == Either.Right(Coordinate1(2, 1)) }
+    assertTrue { movement.calculate(mars, Coordinate1(2, 2), 'b', E) == Either.Right(Coordinate1(1, 2)) }
+    assertTrue { movement.calculate(mars, Coordinate1(2, 2), 'b', S) == Either.Right(Coordinate1(2, 3)) }
+    assertTrue { movement.calculate(mars, Coordinate1(2, 2), 'b', W) == Either.Right(Coordinate1(3, 2)) }
   }
 
   @Test
   internal fun `move forward over the edges`() {
 
-    assertTrue { movement.calculate(mars, Coordinate(0, 4), 'f', N).getOrElse { null } == Coordinate(0, 0) }
-    assertTrue { movement.calculate(mars, Coordinate(4, 0), 'f', E).getOrElse { null } == Coordinate(0, 0) }
-    assertTrue { movement.calculate(mars, Coordinate(0, 0), 'f', S).getOrElse { null } == Coordinate(0, 4) }
-    assertTrue { movement.calculate(mars, Coordinate(0, 0), 'f', W).getOrElse { null } == Coordinate(4, 0) }
+    assertTrue { movement.calculate(mars, Coordinate1(0, 4), 'f', N) == Either.Right(Coordinate1(0, 0)) }
+    assertTrue { movement.calculate(mars, Coordinate1(4, 0), 'f', E) == Either.Right(Coordinate1(0, 0)) }
+    assertTrue { movement.calculate(mars, Coordinate1(0, 0), 'f', S) == Either.Right(Coordinate1(0, 4)) }
+    assertTrue { movement.calculate(mars, Coordinate1(0, 0), 'f', W) == Either.Right(Coordinate1(4, 0)) }
   }
 
   @Test
   internal fun `move backward over the edges`() {
 
-    assertTrue { movement.calculate(mars, Coordinate(0, 0), 'b', N).getOrElse { null } == Coordinate(0, 4) }
-    assertTrue { movement.calculate(mars, Coordinate(0, 0), 'b', E).getOrElse { null } == Coordinate(4, 0) }
-    assertTrue { movement.calculate(mars, Coordinate(0, 4), 'b', S).getOrElse { null } == Coordinate(0, 0) }
-    assertTrue { movement.calculate(mars, Coordinate(4, 0), 'b', W).getOrElse { null } == Coordinate(0, 0) }
+    assertTrue { movement.calculate(mars, Coordinate1(0, 0), 'b', N) == Either.Right(Coordinate1(0, 4)) }
+    assertTrue { movement.calculate(mars, Coordinate1(0, 0), 'b', E) == Either.Right(Coordinate1(4, 0)) }
+    assertTrue { movement.calculate(mars, Coordinate1(0, 4), 'b', S) == Either.Right(Coordinate1(0, 0)) }
+    assertTrue { movement.calculate(mars, Coordinate1(4, 0), 'b', W) == Either.Right(Coordinate1(0, 0)) }
   }
 
   @Test
   internal fun `move command not found`() {
 
-    val move = movement.calculate(mars, Coordinate(0, 0), 'k', N)
-
-    assertTrue { move.isLeft() }
-    assertTrue { move.fold({ it }, { it }) == CommandNotFound }
+    assertTrue { movement.calculate(mars, Coordinate1(0, 0), 'k', N) == Either.Left(CommandNotFound) }
   }
 
   @Test
   internal fun `impossible movement for obstacle detected`() {
 
-    val move = movement.calculate(mars, Coordinate(0, 1), 'f', E)
+    val error = Either.Left(MissionAborted("Obstacle found: ${Coordinate1(1, 1)}"))
 
-    assertTrue { move.isLeft() }
-    assertTrue { move.fold({ it }, { it }) == MissionAborted("Obstacle found: ${Coordinate(1, 1)}") }
+    assertTrue { movement.calculate(mars, Coordinate1(0, 1), 'f', E) == error }
   }
 
   companion object {
