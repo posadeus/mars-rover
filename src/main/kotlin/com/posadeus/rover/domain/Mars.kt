@@ -21,6 +21,6 @@ class Mars(val coordinates: Array<Array<Obstacle?>>) {
   fun hasObstacle(coordinate: Coordinate): Either<Error, Boolean> =
       either.eager {
         isValidCoordinate(coordinate).bind()
-        && coordinates[coordinate.x][coordinate.y]!!.hasObstacle()
+        && coordinates[coordinate.x][coordinate.y]!!.isObstacle()
       }
 }

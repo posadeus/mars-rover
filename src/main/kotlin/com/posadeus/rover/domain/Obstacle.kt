@@ -2,7 +2,7 @@ package com.posadeus.rover.domain
 
 sealed class Obstacle {
 
-  fun hasObstacle(): Boolean =
+  fun isObstacle(): Boolean =
       when (this) {
         is Rock -> true
         is Empty -> false
@@ -10,5 +10,4 @@ sealed class Obstacle {
 }
 
 object Rock : Obstacle()
-
 object Empty : Obstacle()
