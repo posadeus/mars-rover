@@ -174,10 +174,12 @@ class CommandCenterTest {
     val startCoordinate = Coordinate(0, 1)
     val rover = Rover(startCoordinate, N)
 
+    val missionAborted = MissionAborted("Obstacle found: ${Coordinate(1, 1)}")
+
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
     every { movement.calculate(mars, startCoordinate, 'f', N) } returns Either.Right(Coordinate(0, 2))
-    every { movement.calculate(mars, Coordinate(0, 2), 'f', N) } returns Either.Right(Coordinate(0, 3))
+    every { movement.calculate(mars, Coordinate(0, 2), 'f', N) } returns Either.Left(missionAborted)
 
     assertTrue { commandCenter.execute(arrayOf('f', 'f')).getOrElse { null } == Rover(Coordinate(0, 2), N) }
   }

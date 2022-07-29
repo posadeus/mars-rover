@@ -23,7 +23,7 @@ data class CommandCenter(private val mars: Mars,
 
           when (val command = commands.next()) {
             'f', 'b' ->
-              abortIfObstacledOrUpdateCoordinate(movement.calculate(mars, rover.coordinate, command, rover.orientation))
+              movement.calculate(mars, rover.coordinate, command, rover.orientation)
                   .fold({ Either.Right(rover) },
                         { go(commands, move(it, rover)) })
             'r', 'l' -> turn.turn(command,
@@ -43,12 +43,4 @@ data class CommandCenter(private val mars: Mars,
 
   private fun turn(orientation: Orientation, rover: Rover): Rover =
       Rover(rover.coordinate, orientation)
-
-  private fun abortIfObstacledOrUpdateCoordinate(newCoordinate: Either<Error, Coordinate>): Either<Error, Coordinate> {
-
-    return if (newCoordinate.exists { mars.hasObstacle(it) })
-      Either.Left(MissionAborted("Obstacle found: $newCoordinate"))
-    else
-      newCoordinate
-  }
 }
