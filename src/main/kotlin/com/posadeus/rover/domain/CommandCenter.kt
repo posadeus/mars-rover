@@ -29,7 +29,7 @@ data class CommandCenter(private val mars: Mars,
               turn.turn(command, rover.orientation)
                   .fold({ Either.Right(rover) },
                         { go(commands, turn(it, rover)) })
-            else -> Either.Left(CommandNotFound)
+            else -> Either.Left(CommandNotFound("Command not found '$command'"))
           }
         }
         else

@@ -10,7 +10,7 @@ class Turn {
       when (command) {
         'r' -> Either.Right(turnRight(orientation))
         'l' -> Either.Right(turnLeft(orientation))
-        else -> Either.Left(CommandNotFound)
+        else -> Either.Left(CommandNotFound("Command not found '$command'"))
       }
 
   private fun turnRight(orientation: Orientation): Orientation =

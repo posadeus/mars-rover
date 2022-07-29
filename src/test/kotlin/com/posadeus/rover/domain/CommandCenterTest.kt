@@ -155,7 +155,7 @@ class CommandCenterTest {
     val execute = commandCenter.execute(arrayOf('k'))
 
     assertTrue { execute.isLeft() }
-    assertTrue { execute.fold({ it }, { it }) == CommandNotFound }
+    assertTrue { execute.fold({ it }, { it }) == CommandNotFound("Command not found 'k'") }
   }
   // endregion
 

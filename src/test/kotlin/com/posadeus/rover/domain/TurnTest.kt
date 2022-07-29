@@ -33,6 +33,6 @@ internal class TurnTest {
     val turns = turn.turn('k', N)
 
     assertTrue { turns.isLeft() }
-    assertTrue { turns.fold({ it }, { it }) == CommandNotFound }
+    assertTrue { turns.fold({ it }, { it }) == CommandNotFound("Command not found 'k'") }
   }
 }

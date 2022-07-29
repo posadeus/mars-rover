@@ -48,7 +48,9 @@ internal class MovementTest {
   @Test
   internal fun `move command not found`() {
 
-    assertTrue { movement.calculate(mars, Coordinate(0, 0), 'k', N) == Either.Left(CommandNotFound) }
+    val error = Either.Left(CommandNotFound("Command not found 'k'"))
+
+    assertTrue { movement.calculate(mars, Coordinate(0, 0), 'k', N) == error }
   }
 
   @Test

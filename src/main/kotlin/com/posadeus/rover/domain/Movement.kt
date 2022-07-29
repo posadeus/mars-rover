@@ -13,7 +13,7 @@ class Movement {
       when (command) {
         'f' -> abortIfObstacledOrUpdateCoordinate(forward(mars, coordinate, orientation), mars)
         'b' -> abortIfObstacledOrUpdateCoordinate(backward(mars, coordinate, orientation), mars)
-        else -> Either.Left(CommandNotFound)
+        else -> Either.Left(CommandNotFound("Command not found '$command'"))
       }
 
   private fun forward(mars: Mars,
