@@ -3,7 +3,7 @@ package com.posadeus.rover.domain
 import arrow.core.Either
 import arrow.core.continuations.either
 
-class Mars(val coordinates: Array<Array<Obstacle?>>) {
+class Mars(val coordinates: Array<Array<Obstacle>>) {
 
   private val validCoordinateCondition: (Coordinate) -> Boolean =
       {
@@ -21,6 +21,6 @@ class Mars(val coordinates: Array<Array<Obstacle?>>) {
   fun hasObstacle(coordinate: Coordinate): Either<Error, Boolean> =
       either.eager {
         isValidCoordinate(coordinate).bind()
-        && coordinates[coordinate.x][coordinate.y]!!.isObstacle()
+        && coordinates[coordinate.x][coordinate.y].isObstacle()
       }
 }
