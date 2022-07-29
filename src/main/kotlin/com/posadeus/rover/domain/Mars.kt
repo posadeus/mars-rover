@@ -13,19 +13,10 @@ class Mars(val coordinates: Array<Array<Obstacle?>>) {
         && coordinates[it.x].size > it.y
       }
 
-  @Deprecated("Use isValidCoordinateNew instead")
-  fun isValidCoordinate(coordinate: Coordinate): Boolean =
-      validCoordinateCondition(coordinate)
-
   fun isValidCoordinateNew(coordinate: Coordinate): Either<Error, Boolean> =
       Either.conditionally(validCoordinateCondition(coordinate),
                            { WrongCoordinate("Coordinate not allowed: $coordinate") },
                            { true })
-
-  @Deprecated("Use hasObstacleNew instead")
-  fun hasObstacle(coordinate: Coordinate): Boolean =
-      isValidCoordinate(coordinate)
-      && coordinates[coordinate.x][coordinate.y]!!.hasObstacle()
 
   fun hasObstacleNew(coordinate: Coordinate): Either<Error, Boolean> =
       either.eager {
