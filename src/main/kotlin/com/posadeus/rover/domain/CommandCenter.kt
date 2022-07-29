@@ -8,7 +8,7 @@ data class CommandCenter(private val mars: Mars,
                          private val turn: Turn) {
 
   fun position(): Either<Error, Coordinate> =
-      mars.isValidCoordinateNew((rover.coordinate))
+      mars.isValidCoordinate((rover.coordinate))
           .fold({ Either.Left(it) },
                 { Either.Right(rover.coordinate) })
 

@@ -17,9 +17,9 @@ class MarsTest {
                             arrayOf(Empty, Rock, Rock, Empty, Empty)))
     val error = Either.Left(WrongCoordinate("Coordinate not allowed: ${Coordinate(-3, 1)}"))
 
-    assertTrue { mars.isValidCoordinateNew(Coordinate(1, 1)).isRight() }
-    assertFalse { mars.isValidCoordinateNew(Coordinate(-3, 1)).isRight() }
-    assertTrue { mars.isValidCoordinateNew(Coordinate(-3, 1)) == error }
+    assertTrue { mars.isValidCoordinate(Coordinate(1, 1)).isRight() }
+    assertFalse { mars.isValidCoordinate(Coordinate(-3, 1)).isRight() }
+    assertTrue { mars.isValidCoordinate(Coordinate(-3, 1)) == error }
   }
 
   @Test
@@ -32,8 +32,8 @@ class MarsTest {
                             arrayOf(Empty, Rock, Rock, Empty, Empty)))
     val error = Either.Left(WrongCoordinate("Coordinate not allowed: ${Coordinate(5, 2)}"))
 
-    assertTrue { mars.hasObstacleNew(Coordinate(0, 3)) == Either.Right(true) }
-    assertTrue { mars.hasObstacleNew(Coordinate(1, 2)) == Either.Right(false) }
-    assertTrue { mars.hasObstacleNew(Coordinate(5, 2)) == error }
+    assertTrue { mars.hasObstacle(Coordinate(0, 3)) == Either.Right(true) }
+    assertTrue { mars.hasObstacle(Coordinate(1, 2)) == Either.Right(false) }
+    assertTrue { mars.hasObstacle(Coordinate(5, 2)) == error }
   }
 }

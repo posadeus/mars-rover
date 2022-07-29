@@ -53,11 +53,11 @@ class Movement {
 
   private fun isMovingInsideEdges(mars: Mars,
                                   nextInsideCoordinate: Coordinate): Either<Error, Boolean> =
-      mars.isValidCoordinateNew(nextInsideCoordinate)
+      mars.isValidCoordinate(nextInsideCoordinate)
 
   private fun abortIfObstacledOrUpdateCoordinate(newCoordinate: Coordinate,
                                                  mars: Mars): Either<Error, Coordinate> =
-      mars.hasObstacleNew(newCoordinate)
+      mars.hasObstacle(newCoordinate)
           .flatMap {
             if (it)
               Either.Left(MissionAborted("Obstacle found: $newCoordinate"))
