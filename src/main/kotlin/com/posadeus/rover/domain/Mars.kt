@@ -1,6 +1,7 @@
 package com.posadeus.rover.domain
 
 import arrow.core.Either
+import arrow.core.continuations.either
 
 class Mars(val coordinates: Array<Array<Obstacle?>>) {
 
@@ -21,7 +22,14 @@ class Mars(val coordinates: Array<Array<Obstacle?>>) {
                            { WrongCoordinate("Coordinate not allowed: $coordinate") },
                            { true })
 
+  @Deprecated("Use hasObstacleNew instead")
   fun hasObstacle(coordinate: Coordinate): Boolean =
       isValidCoordinate(coordinate)
       && coordinates[coordinate.x][coordinate.y]!!.hasObstacle()
+
+  fun hasObstacleNew(coordinate: Coordinate): Either<Error, Boolean> =
+      either.eager {
+        isValidCoordinateNew(coordinate).bind()
+        && coordinates[coordinate.x][coordinate.y]!!.hasObstacle()
+      }
 }

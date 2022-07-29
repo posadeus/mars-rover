@@ -30,9 +30,10 @@ class MarsTest {
                             arrayOf(Empty, Empty, Empty, Empty, Empty),
                             arrayOf(Empty, Empty, Empty, Empty, Rock),
                             arrayOf(Empty, Rock, Rock, Empty, Empty)))
+    val error = Either.Left(WrongCoordinate("Coordinate not allowed: ${Coordinate(5, 2)}"))
 
-    assertTrue { mars.hasObstacle(Coordinate(0, 3)) }
-    assertFalse { mars.hasObstacle(Coordinate(1, 2)) }
-    assertFalse { mars.hasObstacle(Coordinate(5, 2)) }
+    assertTrue { mars.hasObstacleNew(Coordinate(0, 3)) == Either.Right(true) }
+    assertTrue { mars.hasObstacleNew(Coordinate(1, 2)) == Either.Right(false) }
+    assertTrue { mars.hasObstacleNew(Coordinate(5, 2)) == error }
   }
 }
