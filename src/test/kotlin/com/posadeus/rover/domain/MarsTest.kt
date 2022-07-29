@@ -1,5 +1,6 @@
 package com.posadeus.rover.domain
 
+import arrow.core.Either
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -14,9 +15,11 @@ class MarsTest {
                             arrayOf(Empty, Empty, Empty, Empty, Empty),
                             arrayOf(Empty, Empty, Empty, Empty, Rock),
                             arrayOf(Empty, Rock, Rock, Empty, Empty)))
+    val error = Either.Left(WrongCoordinate("Coordinate not allowed: ${Coordinate(-3, 1)}"))
 
-    assertTrue { mars.isValidCoordinate(Coordinate(1, 1)) }
-    assertFalse { mars.isValidCoordinate(Coordinate(-3, 1)) }
+    assertTrue { mars.isValidCoordinateNew(Coordinate(1, 1)).isRight() }
+    assertFalse { mars.isValidCoordinateNew(Coordinate(-3, 1)).isRight() }
+    assertTrue { mars.isValidCoordinateNew(Coordinate(-3, 1)) == error }
   }
 
   @Test
