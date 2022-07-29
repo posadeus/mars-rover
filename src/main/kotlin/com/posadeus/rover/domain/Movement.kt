@@ -1,6 +1,7 @@
 package com.posadeus.rover.domain
 
 import arrow.core.Either
+import arrow.core.flatMap
 import com.posadeus.rover.domain.Orientation.*
 
 class Movement {
@@ -56,8 +57,11 @@ class Movement {
 
   private fun abortIfObstacledOrUpdateCoordinate(newCoordinate: Coordinate,
                                                  mars: Mars): Either<Error, Coordinate> =
-      if (mars.hasObstacle(newCoordinate))
-        Either.Left(MissionAborted("Obstacle found: $newCoordinate"))
-      else
-        Either.Right(newCoordinate)
+      mars.hasObstacleNew(newCoordinate)
+          .flatMap {
+            if (it)
+              Either.Left(MissionAborted("Obstacle found: $newCoordinate"))
+            else
+              Either.Right(newCoordinate)
+          }
 }
