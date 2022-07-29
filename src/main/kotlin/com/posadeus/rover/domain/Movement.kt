@@ -11,8 +11,8 @@ class Movement {
                 command: Char,
                 orientation: Orientation): Either<Error, Coordinate> =
       when (command) {
-        'f' -> abortIfObstacledOrUpdateCoordinate(forward(mars, coordinate, orientation), mars)
-        'b' -> abortIfObstacledOrUpdateCoordinate(backward(mars, coordinate, orientation), mars)
+        'f' -> newFreeOfObstacleCoordinate(forward(mars, coordinate, orientation), mars)
+        'b' -> newFreeOfObstacleCoordinate(backward(mars, coordinate, orientation), mars)
         else -> Either.Left(CommandNotFound("Command not found '$command'"))
       }
 
@@ -55,8 +55,8 @@ class Movement {
                                   nextInsideCoordinate: Coordinate): Either<Error, Boolean> =
       mars.isValidCoordinate(nextInsideCoordinate)
 
-  private fun abortIfObstacledOrUpdateCoordinate(newCoordinate: Coordinate,
-                                                 mars: Mars): Either<Error, Coordinate> =
+  private fun newFreeOfObstacleCoordinate(newCoordinate: Coordinate,
+                                          mars: Mars): Either<Error, Coordinate> =
       mars.hasObstacle(newCoordinate)
           .flatMap {
             if (it)
