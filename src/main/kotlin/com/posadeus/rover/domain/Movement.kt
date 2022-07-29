@@ -46,12 +46,13 @@ class Movement {
   private fun nextCoordinate(mars: Mars,
                              nextInsideCoordinate: Coordinate,
                              pacmanCoordinate: Coordinate): Coordinate =
-      if (isMovingInsideEdges(mars, nextInsideCoordinate)) nextInsideCoordinate
-      else pacmanCoordinate
+      isMovingInsideEdges(mars, nextInsideCoordinate)
+          .fold({ pacmanCoordinate },
+                { nextInsideCoordinate })
 
   private fun isMovingInsideEdges(mars: Mars,
-                                  nextInsideCoordinate: Coordinate): Boolean =
-      mars.isValidCoordinate(nextInsideCoordinate)
+                                  nextInsideCoordinate: Coordinate): Either<Error, Boolean> =
+      mars.isValidCoordinateNew(nextInsideCoordinate)
 
   private fun abortIfObstacledOrUpdateCoordinate(newCoordinate: Coordinate,
                                                  mars: Mars): Either<Error, Coordinate> =
