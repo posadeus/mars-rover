@@ -25,9 +25,10 @@ data class CommandCenter(private val mars: Mars,
               movement.calculate(mars, rover.coordinate, command, rover.orientation)
                   .fold({ Either.Right(rover) },
                         { go(commands, move(it, rover)) })
-            'r', 'l' -> turn.turn(command,
-                                  rover.orientation).fold({ Either.Right(rover) },
-                                                          { go(commands, turn(it, rover)) })
+            'r', 'l' ->
+              turn.turn(command, rover.orientation)
+                  .fold({ Either.Right(rover) },
+                        { go(commands, turn(it, rover)) })
             else -> Either.Left(CommandNotFound)
           }
         }
