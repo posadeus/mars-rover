@@ -8,10 +8,9 @@ data class CommandCenter(private val mars: Mars,
                          private val turn: Turn) {
 
   fun position(): Either<Error, Coordinate> =
-      if (mars.isValidCoordinate(rover.coordinate))
-        Either.Right(rover.coordinate)
-      else
-        Either.Left(WrongCoordinate("Coordinate not allowed: ${rover.coordinate}"))
+      mars.isValidCoordinateNew((rover.coordinate))
+          .fold({ Either.Left(it) },
+                { Either.Right(rover.coordinate) })
 
   fun orientation(): Orientation =
       rover.orientation

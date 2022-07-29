@@ -21,7 +21,7 @@ class CommandCenterTest {
 
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    assertTrue { commandCenter.position().getOrElse { null } == Coordinate(2, 2) }
+    assertTrue { commandCenter.position() == Either.Right(Coordinate(2, 2)) }
     assertTrue { commandCenter.orientation() == N }
   }
 
@@ -32,10 +32,7 @@ class CommandCenterTest {
     val rover = Rover(coordinate, N)
     val commandCenter = CommandCenter(mars, rover, movement, turn)
 
-    val position = commandCenter.position()
-
-    assertTrue { position.isLeft() }
-    assertTrue { position.fold({ it }, { it }) == WrongCoordinate("Coordinate not allowed: $coordinate") }
+    assertTrue { commandCenter.position() == Either.Left(WrongCoordinate("Coordinate not allowed: $coordinate")) }
   }
 // endregion
 
